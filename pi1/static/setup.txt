@@ -1,0 +1,154 @@
+plugin.tx_listfeusers_pi1{
+
+
+
+    user = COA
+    user {
+        10 = COA
+        10 {
+        stdWrap.dataWrap = <div id="user-{field:uid}" class="user vcard">|</div>
+        #name
+        10 = COA
+        10 {
+
+            30 = TEXT
+            30.field = name
+
+            wrap = <h1 class="name fn">|</h1>
+        }
+
+        11 = TEXT
+        11 {
+            data = page : title
+            wrap = <div class="role">|</div>
+        }
+
+        15 = COA
+        15 {
+            if.isTrue.field = image
+            1 = IMAGE
+            1 {
+                wrap = <div class="photo">|</div>
+                file = image
+                file.import =  uploads/tx_srfeuserregister/
+                file.import.field = image
+                file.width = 180
+
+                required = 1
+            }
+        }
+
+
+        #contact info
+        20 = COA
+
+        20 {
+            stdWrap.wrap = <div class="contact">|</div>
+            stdWrap.required = 1
+
+            10 = TEXT
+            10.field = telephone
+            10.wrap = <div class="tel">tel.: |</div>
+            10.if.isTrue.field = telephone
+
+            20 = TEXT
+            20.field = email
+            20.wrap = <div class="email">|</div>
+            20.if.isTrue.field = email
+
+            30 = TEXT
+            30.field = fax
+            30.wrap = <div class="fax">fax: |</div>
+            30.if.isTrue.field = fax
+
+            40 = TEXT
+            40.field = www
+            40.wrap = <div class="url">|</div>
+            40.if.isTrue.field = www
+            40.typolink.parameter.field = www
+            40.typolink.extTarget = _blank
+        }
+
+        #address
+        30 = COA
+        30 {
+            wrap = <div class="adr">|</div>
+            10 = TEXT
+            10.field = address
+            10.wrap = <div class="street-address">|</div>
+            10.if.isTrue.field = address
+
+			19  = TEXT
+            19.field = zip
+            19.wrap = <span class="postal-code">| &nbsp; </span>
+            19.if.isTrue.field = zip
+
+            20 = TEXT
+            20.field = city
+            20.wrap = <span class="locality">|</span>
+            20.if.isTrue.field = city
+
+
+
+        }
+
+        #description
+        40 = COA
+        40 {
+            required = 1
+            wrap = <div class="info">|</div>
+            10 = TEXT
+            10 {
+                field = comments
+            }
+        }
+
+    }
+}
+
+    _CSS_DEFAULT_STYLE (
+            .tx-listfeusers-pi1 .user {
+                overflow: auto;
+                position: relative;
+            }
+
+            .tx-listfeusers-pi1 .user .fn {
+                font-size: 20px;
+            }
+
+            .tx-listfeusers-pi1 .role {
+                display: none;
+            }
+
+            .tx-listfeusers-pi1 .user .contact {
+                border: 1px solid #eee;
+                padding: 10px;
+                margin: 0px 0px 10px 0px;
+                overflow: auto;
+
+
+            }
+            .tx-listfeusers-pi1 .user .adr {
+                border: 1px solid #eee;
+                padding: 10px;
+                margin: 0px 0px 10px 0px;
+                overflow: auto;
+
+
+            }
+
+            .tx-listfeusers-pi1 .user .photo {
+                float:right;
+                margin-left: 10px;
+
+
+
+            }
+
+           .tx-listfeusers-pi1 .user .contact .email, .tx-listfeusers-pi1 .user .contact .tel, .tx-listfeusers-pi1 .user .contact .fax, .tx-listfeusers-pi1 .user .contact .www {
+                float: left;
+                margin-right: 10px;
+
+           }
+        )
+}

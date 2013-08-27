@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'listfeusers'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">List users</label>
+			<label index="fe_pid">Page assigned to this group</label>
+			<label index="pi1_plus_wiz_description">List the frontend registered users</label>
+			<label index="pi2_plus_wiz_description">List the logged user</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">List users</label>
+			<label index="pi2_title">List logged user</label>
+                        <label index="fe_pid">Seite dieser Gruppe zugeordnet</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_listfeusers_pi2&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="list_mode_1">Mode 1</label>
+			<label index="list_mode_2">Mode 2</label>
+			<label index="list_mode_3">Mode 3</label>
+			<label index="back">Back</label>
+			<label index="submit_button_label">Click here to submit value</label>
+                        <label index="groups_title">Groups</label>
+			<label index="groups">Select groups that will be listed</label>
+
+		</languageKey>
+                <languageKey index="de" type="array">
+			<label index="groups_title">User</label>
+			<label index="groups">Wählen Sie Gruppen, die aufgelistet werden</label>
+		</languageKey>
+	</data>
+</T3locallang>

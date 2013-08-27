@@ -1,0 +1,135 @@
+plugin.tx_listfeusers_pi2{
+
+
+    user = COA
+    user {
+        10 = COA
+        10 {
+        stdWrap.dataWrap = <div id="user-{field:uid}" class="user vcard">|</div>
+        #name
+        10 = COA
+        10 {
+
+            30 = TEXT
+            30.field = name
+            wrap = <h1 class="name fn">|</h1>
+        }
+
+
+        15 = COA
+        15 {
+            if.isTrue.field = image
+            1 = IMAGE
+            1 {
+                wrap = <div class="photo">|</div>
+                file = image
+                file.import =  uploads/tx_srfeuserregister/
+                file.import.field = image
+                file.width = 180
+
+                required = 1
+            }
+        }
+
+
+        #contact info
+        20 = COA
+
+        20 {
+            stdWrap.wrap = <table class="contact">|</table>
+            stdWrap.required = 1
+
+            10 = TEXT
+            10.field = firma
+            10.wrap = <tr><td>Firma</td><td class="value">|</td></div>
+
+            9 = TEXT
+            9.field = date_of_birth
+            9.wrap = <tr><td>Geburtsdatum</td><td class="value">|</td></div>
+            9.if.isTrue.field = date_of_birth
+
+            10 = TEXT
+            10.field = telephone
+            10.wrap = <tr><td>Telefon</td><td class="value">|</td></div>
+            #10.if.isTrue.field = telephone
+
+            20 = TEXT
+            20.field = email
+            20.wrap = <tr><td>E-Mail</td><td class="value">|</td></tr>
+            #20.if.isTrue.field = email
+
+            30 = TEXT
+            30.field = fax
+            30.wrap = <tr><td>fax:</td><td class="value">|</td></tr>
+            30.if.isTrue.field = fax
+
+            40 = TEXT
+            40.field = www
+            40.wrap = <tr><td>Homepage</td><td class="value">|</td></tr>
+            40.if.isTrue.field = www
+            40.typolink.parameter.field = www
+            40.typolink.extTarget = _blank
+        }
+
+        #address
+        29 = TEXT
+        29.value = <h2>Adresse</h2>
+        30 = COA
+        30 {
+            wrap = <table class="address">|</table>
+
+            10 = TEXT
+            10.field = address
+            10.wrap = <tr><td>Adresse</td><td class="value">|<//tr>
+
+            19  = TEXT
+            19.field = zip
+            19.wrap = <tr><td>PLZ</td><td class="value">|</tr>
+            #19.if.isTrue.field = zip
+
+            20 = TEXT
+            20.field = city
+            20.wrap = <tr><td>Wohnort</td><td class="value">|</tr>
+            #20.if.isTrue.field = city
+
+
+
+        }
+
+
+    }
+}
+
+    _CSS_DEFAULT_STYLE (
+
+            .tx-listfeusers-pi2 .user .photo {
+                float:right;
+                margin-left: 10px;
+            }
+
+            .content .tx-listfeusers-pi2 table{
+                margin: 10px 0px;
+            }
+
+            .content .tx-listfeusers-pi2 h1{
+                margin: 0px 10px 10px 10px;
+                padding: 0;
+            }
+
+            .content .tx-listfeusers-pi2 h2 {
+                margin: 5px 10px;
+                padding: 0;
+            }
+
+            .tx-listfeusers-pi2 table tr td{
+                text-align: right;
+                width: 25%;
+            }
+
+            .tx-listfeusers-pi2 table tr td.value {
+                font-weight: bold;
+                text-align: left;
+                width: 75%;
+            }
+        )
+}
