@@ -11,9 +11,37 @@ For both plugins must be either included static resource in template or
 you can define your own typoscript for `plugin.tx_listfeusers_pi2.user`.
 This typoscript object `COA` is required.
 
-Ti this object will be passed in row from table fe_user.
+To this object will be passed in row from table fe_user.
 
-## List frontend users
+## Database modification
+
+Plugin add a field `fe_pid` to table `fe_groups`. This field is used for association between
+group and page. This field is editable in administration of the group in backend area. Despite
+this is not used by plugin itself by default.
+
+To get link to the proper page with listed user you can use this code snippet
+
+    10 = COA
+          10 {
+
+            10 = TEXT
+            10.field = name
+            10.if.isTrue.field = name
+            10.stdWrap{
+                typolink.parameter.stdWrap {
+                    dataWrap = db:fe_groups:{field:usergroup}:fe_pid
+                    wrap3 = {|}#user-{field:uid}
+                    insertData = 1
+            }
+         }
+      }
+
+
+## Static files
+
+Here are the stacic files, that are provided with the lugins.
+
+### List logged user
 
     plugin.tx_listfeusers_pi2{
         user = COA
@@ -143,7 +171,7 @@ Ti this object will be passed in row from table fe_user.
             )
     }
 
-## List logged user
+### List frontend user
 
     plugin.tx_listfeusers_pi1{
         user = COA
