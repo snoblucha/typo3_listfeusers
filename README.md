@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          # List frontend users
+# List frontend user
 
 Plugin for listing users from table fe_user in frontend.
 
@@ -11,7 +11,7 @@ For both plugins must be either included static resource in template or
 you can define your own typoscript for `plugin.tx_listfeusers_pi2.user`.
 This typoscript object `COA` is required.
 
-There will be passed in row from table fe_user.
+Ti this object will be passed in row from table fe_user.
 
 ## List frontend users
 
