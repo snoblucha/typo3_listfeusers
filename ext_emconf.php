@@ -11,25 +11,25 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'List frontend users by groups',
-	'description' => 'List ffrontend users',
+	'title' => 'List frontend users in FE',
+	'description' => 'Two frontend plugins to generate list of frontend users on page or display logged user.',
 	'category' => 'fe',
-	'author' => 'Petr Šnobl',
-	'author_email' => 'snoblucha@email.cz',
+	'author' => 'Lebrija invest s.r.o.',
+	'author_email' => 'petr.snobl@lebrija.cz',
 	'shy' => '',
 	'dependencies' => 'felogin',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => 'cm1',
-	'state' => 'alpha',
+	'state' => 'beta',
 	'internal' => '',
 	'uploadfolder' => 0,
 	'createDirs' => '',
-	'modify_tables' => '',
+	'modify_tables' => 'fe_groups',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'author_company' => '',
-	'version' => '0.0.0',
+	'author_company' => 'Lebrija invest s.r.o.',
+	'version' => '0.9.0',
 	'constraints' => array(
 		'depends' => array(
 			'felogin' => '',

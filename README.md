@@ -39,7 +39,7 @@ To get link to the proper page with listed user you can use this code snippet
 
 ## Static files
 
-Here are the stacic files, that are provided with the lugins.
+Here are the stacic files, that are provided with the plugins.
 
 ### List logged user
 
