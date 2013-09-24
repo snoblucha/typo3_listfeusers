@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>README</title>
+<style type="text/css">/*...*/</style>
+</head>
+<body>
+<h1>List frontend user</h1><p>Plugin for listing users from table fe_user in frontend.</p><p>Contains two frontend plugins.</p>
+<ol>
+  <li>List users from selected groups</li>
+  <li>List currently logged user</li>
+</ol><p>For both plugins must be either included static resource in template or you can define your own typoscript for <code>plugin.tx_listfeusers_pi2.user</code>. This typoscript object <code>COA</code> is required.</p><p>To this object will be passed in row from table fe_user.</p><h2>Database modification</h2><p>Plugin add a field <code>fe_pid</code> to table <code>fe_groups</code>. This field is used for association between group and page. This field is editable in administration of the group in backend area. Despite this is not used by plugin itself by default.</p><p>To get link to the proper page with listed user you can use this code snippet</p>
+<pre><code>10 = COA
+      10 {
+
+        10 = TEXT
+        10.field = name
+        10.if.isTrue.field = name
+        10.stdWrap{
+            typolink.parameter.stdWrap {
+                dataWrap = db:fe_groups:{field:usergroup}:fe_pid
+                wrap3 = {|}#user-{field:uid}
+                insertData = 1
+        }
+     }
+  }
+</code></pre><h2>Static files</h2><p>Here are the stacic files, that are provided with the plugins.</p><h3>List logged user</h3>
+<pre><code>plugin.tx_listfeusers_pi2{
+    user = COA
+    user {
+        10 = COA
+        10 {
+        stdWrap.dataWrap = &lt;div id=&quot;user-{field:uid}&quot; class=&quot;user vcard&quot;&gt;|&lt;/div&gt;
+        #name
+        10 = COA
+        10 {
+
+            30 = TEXT
+            30.field = name
+            wrap = &lt;h1 class=&quot;name fn&quot;&gt;|&lt;/h1&gt;
+        }
+
+
+        15 = COA
+        15 {
+            if.isTrue.field = image
+            1 = IMAGE
+            1 {
+                wrap = &lt;div class=&quot;photo&quot;&gt;|&lt;/div&gt;
+                file = image
+                file.import =  uploads/tx_srfeuserregister/
+                file.import.field = image
+                file.width = 180
+
+                required = 1
+            }
+        }
+
+
+        #contact info
+        20 = COA
+
+        20 {
+            stdWrap.wrap = &lt;table class=&quot;contact&quot;&gt;|&lt;/table&gt;
+            stdWrap.required = 1
+
+            10 = TEXT
+            10.field = firma
+            10.wrap = &lt;tr&gt;&lt;td&gt;Firma&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/div&gt;
+
+            9 = TEXT
+            9.field = date_of_birth
+            9.wrap = &lt;tr&gt;&lt;td&gt;Geburtsdatum&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/div&gt;
+            9.if.isTrue.field = date_of_birth
+
+            10 = TEXT
+            10.field = telephone
+            10.wrap = &lt;tr&gt;&lt;td&gt;Telefon&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/div&gt;
+            #10.if.isTrue.field = telephone
+
+            20 = TEXT
+            20.field = email
+            20.wrap = &lt;tr&gt;&lt;td&gt;E-Mail&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/tr&gt;
+            #20.if.isTrue.field = email
+
+            30 = TEXT
+            30.field = fax
+            30.wrap = &lt;tr&gt;&lt;td&gt;fax:&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/tr&gt;
+            30.if.isTrue.field = fax
+
+            40 = TEXT
+            40.field = www
+            40.wrap = &lt;tr&gt;&lt;td&gt;Homepage&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/td&gt;&lt;/tr&gt;
+            40.if.isTrue.field = www
+            40.typolink.parameter.field = www
+            40.typolink.extTarget = _blank
+        }
+
+        #address
+        29 = TEXT
+        29.value = &lt;h2&gt;Adresse&lt;/h2&gt;
+        30 = COA
+        30 {
+            wrap = &lt;table class=&quot;address&quot;&gt;|&lt;/table&gt;
+
+            10 = TEXT
+            10.field = address
+            10.wrap = &lt;tr&gt;&lt;td&gt;Adresse&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;//tr&gt;
+
+            19  = TEXT
+            19.field = zip
+            19.wrap = &lt;tr&gt;&lt;td&gt;PLZ&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/tr&gt;
+            #19.if.isTrue.field = zip
+
+            20 = TEXT
+            20.field = city
+            20.wrap = &lt;tr&gt;&lt;td&gt;Wohnort&lt;/td&gt;&lt;td class=&quot;value&quot;&gt;|&lt;/tr&gt;
+            #20.if.isTrue.field = city
+        }
+    }
+}
+
+_CSS_DEFAULT_STYLE (
+            .tx-listfeusers-pi2 .user .photo {
+                float:right;
+                margin-left: 10px;
+            }
+
+            .content .tx-listfeusers-pi2 table{
+                margin: 10px 0px;
+            }
+
+            .content .tx-listfeusers-pi2 h1{
+                margin: 0px 10px 10px 10px;
+                padding: 0;
+            }
+
+            .content .tx-listfeusers-pi2 h2 {
+                margin: 5px 10px;
+                padding: 0;
+            }
+
+            .tx-listfeusers-pi2 table tr td{
+                text-align: right;
+                width: 25%;
+            }
+
+            .tx-listfeusers-pi2 table tr td.value {
+                font-weight: bold;
+                text-align: left;
+                width: 75%;
+            }
+        )
+}
+</code></pre><h3>List frontend user</h3>
+<pre><code>plugin.tx_listfeusers_pi1{
+    user = COA
+    user {
+        10 = COA
+        10 {
+        stdWrap.dataWrap = &lt;div id=&quot;user-{field:uid}&quot; class=&quot;user vcard&quot;&gt;|&lt;/div&gt;
+        #name
+        10 = COA
+        10 {
+            30 = TEXT
+            30.field = name
+            wrap = &lt;h1 class=&quot;name fn&quot;&gt;|&lt;/h1&gt;
+        }
+
+        11 = TEXT
+        11 {
+            data = page : title
+            wrap = &lt;div class=&quot;role&quot;&gt;|&lt;/div&gt;
+        }
+
+        15 = COA
+        15 {
+            if.isTrue.field = image
+            1 = IMAGE
+            1 {
+                wrap = &lt;div class=&quot;photo&quot;&gt;|&lt;/div&gt;
+                file = image
+                file.import =  uploads/tx_srfeuserregister/
+                file.import.field = image
+                file.width = 180
+                required = 1
+            }
+        }
+
+
+        #contact info
+        20 = COA
+
+        20 {
+            stdWrap.wrap = &lt;div class=&quot;contact&quot;&gt;|&lt;/div&gt;
+            stdWrap.required = 1
+
+            10 = TEXT
+            10.field = telephone
+            10.wrap = &lt;div class=&quot;tel&quot;&gt;tel.: |&lt;/div&gt;
+            10.if.isTrue.field = telephone
+
+            20 = TEXT
+            20.field = email
+            20.wrap = &lt;div class=&quot;email&quot;&gt;|&lt;/div&gt;
+            20.if.isTrue.field = email
+
+            30 = TEXT
+            30.field = fax
+            30.wrap = &lt;div class=&quot;fax&quot;&gt;fax: |&lt;/div&gt;
+            30.if.isTrue.field = fax
+
+            40 = TEXT
+            40.field = www
+            40.wrap = &lt;div class=&quot;url&quot;&gt;|&lt;/div&gt;
+            40.if.isTrue.field = www
+            40.typolink.parameter.field = www
+            40.typolink.extTarget = _blank
+        }
+
+        #address
+        30 = COA
+        30 {
+            wrap = &lt;div class=&quot;adr&quot;&gt;|&lt;/div&gt;
+            10 = TEXT
+            10.field = address
+            10.wrap = &lt;div class=&quot;street-address&quot;&gt;|&lt;/div&gt;
+            10.if.isTrue.field = address
+
+         19  = TEXT
+            19.field = zip
+            19.wrap = &lt;span class=&quot;postal-code&quot;&gt;| &amp;nbsp; &lt;/span&gt;
+            19.if.isTrue.field = zip
+
+            20 = TEXT
+            20.field = city
+            20.wrap = &lt;span class=&quot;locality&quot;&gt;|&lt;/span&gt;
+            20.if.isTrue.field = city
+        }
+
+        #description
+        40 = COA
+        40 {
+            required = 1
+            wrap = &lt;div class=&quot;info&quot;&gt;|&lt;/div&gt;
+            10 = TEXT
+            10 {
+                field = comments
+            }
+        }
+    }
+}
+
+_CSS_DEFAULT_STYLE (
+            .tx-listfeusers-pi1 .user {
+                overflow: auto;
+                position: relative;
+            }
+
+            .tx-listfeusers-pi1 .user .fn {
+                font-size: 20px;
+            }
+
+            .tx-listfeusers-pi1 .role {
+                display: none;
+            }
+
+            .tx-listfeusers-pi1 .user .contact {
+                border: 1px solid #eee;
+                padding: 10px;
+                margin: 0px 0px 10px 0px;
+                overflow: auto;
+            }
+            .tx-listfeusers-pi1 .user .adr {
+                border: 1px solid #eee;
+                padding: 10px;
+                margin: 0px 0px 10px 0px;
+                overflow: auto;
+            }
+
+            .tx-listfeusers-pi1 .user .photo {
+                float:right;
+                margin-left: 10px;
+            }
+
+           .tx-listfeusers-pi1 .user .contact .email, .tx-listfeusers-pi1 .user .contact .tel, .tx-listfeusers-pi1 .user .contact .fax, .tx-listfeusers-pi1 .user .contact .www {
+                float: left;
+                margin-right: 10px;
+           }
+        )
+}
+</code></pre>
+</body>
+</html>
