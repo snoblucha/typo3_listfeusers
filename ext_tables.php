@@ -29,15 +29,15 @@ if (TYPO3_MODE === 'BE') {
 }
 
 //t3lib_extMgm::addStaticFile($_EXTKEY,'static//', '');
-t3lib_extMgm::addStaticFile($_EXTKEY,'pi1/static/','List frontend users');
-t3lib_extMgm::addStaticFile($_EXTKEY,'pi2/static/','List single frontend user');
+t3lib_extMgm::addStaticFile($_EXTKEY,'pi1/static/','LLL:EXT:listfeusers/locallang.xml:pi1_title');
+t3lib_extMgm::addStaticFile($_EXTKEY,'pi2/static/','LLL:EXT:listfeusers/locallang.xml:pi2_title');
 
 
 if (TYPO3_MODE === 'BE')	{
-	$GLOBALS['TBE_MODULES_EXT']['xMOD_alt_clickmenu']['extendCMclasses'][] = array(
+	/*$GLOBALS['TBE_MODULES_EXT']['xMOD_alt_clickmenu']['extendCMclasses'][] = array(
 		'name' => 'tx_listfeusers_cm1',
 		'path' => t3lib_extMgm::extPath($_EXTKEY).'class.tx_listfeusers_cm1.php'
-	);
+	);*/
 
         $TCA['fe_groups']['columns']['fe_pid'] = array(
                 'label' => 'LLL:EXT:listfeusers/locallang.xml:fe_pid',
@@ -54,4 +54,3 @@ if (TYPO3_MODE === 'BE')	{
 
         t3lib_extMgm::addToAllTCAtypes('fe_groups', 'fe_pid;;;;1-1-1', '', 'after:TSconfig');
 }
-?>

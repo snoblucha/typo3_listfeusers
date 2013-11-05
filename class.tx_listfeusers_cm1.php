@@ -34,13 +34,13 @@
 class tx_listfeusers_cm1 {
 	function main(&$backRef,$menuItems,$table,$uid)	{
 		global $BE_USER,$TCA,$LANG;
-	
+
 		$localItems = Array();
 		if (!$backRef->cmLevel)	{
-			
+
 				// Adds the regular item:
 			$LL = $this->includeLL();
-			
+
 				// Repeat this (below) for as many items you want to add!
 				// Remember to add entries in the localconf.php file for additional titles.
 			$url = t3lib_extMgm::extRelPath('listfeusers').'cm1/index.php?id='.$uid;
@@ -50,15 +50,15 @@ class tx_listfeusers_cm1 {
 				$backRef->urlRefForCM($url),
 				1	// Disables the item in the top-bar. Set this to zero if you with the item to appear in the top bar!
 			);
-			
-			
-			
+
+
+
 			// Simply merges the two arrays together and returns ...
 			$menuItems=array_merge($menuItems,$localItems);
 		}
 		return $menuItems;
 	}
-	
+
 	/**
 	 * Reads the [extDir]/locallang.xml and returns the \$LOCAL_LANG array found in that file.
 	 *
@@ -75,4 +75,3 @@ if (defined('TYPO3_MODE') && isset($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLA
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/listfeusers/class.tx_listfeusers_cm1.php']);
 }
 
-?>
