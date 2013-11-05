@@ -1,0 +1,5 @@
+plugin.tx_listfeusers_pi2{
+    image_directory = uploads/pics/
+    image_width = 180
+
+}

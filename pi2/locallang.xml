@@ -6,8 +6,6 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-                        <label index="groups_title">Groups</label>
-			<label index="groups">Select groups that will be listed</label>
 			<label index="telephone">Telephone</label>
 			<label index="birthday">Birthday</label>
 			<label index="email">E-mail</label>
@@ -19,8 +17,6 @@
 
 		</languageKey>
                 <languageKey index="de" type="array">
-			<label index="groups_title">User</label>
-			<label index="groups">Wählen Sie Gruppen, die aufgelistet werden</label>
                         <label index="telephone">Telefon</label>
 			<label index="birthday">Geburtsdatum</label>
 			<label index="email">E-mail</label>
@@ -29,6 +25,16 @@
 			<label index="address">Adresse</label>
 			<label index="zip">PLZ</label>
 			<label index="city">Wohnort</label>
+		</languageKey>
+                <languageKey index="de" type="array">
+                        <label index="telephone">Telefon</label>
+			<label index="birthday">Narozeniny</label>
+			<label index="email">E-mail</label>
+			<label index="fax">Fax</label>
+			<label index="homepage">Domovská stránka</label>
+			<label index="address">Adresa</label>
+			<label index="zip">PSČ</label>
+			<label index="city">Město</label>
 		</languageKey>
 	</data>
 </T3locallang>

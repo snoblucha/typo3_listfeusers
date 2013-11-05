@@ -14,6 +14,14 @@
                 <languageKey index="de" type="array">
 			<label index="groups_title">Gruppen</label>
 			<label index="groups">Wählen Sie Gruppen, die aufgelistet werden</label>
+                        <label index="tel">tel</label>
+			<label index="fax">fax</label>
+		</languageKey>
+                <languageKey index="cs" type="array">
+			<label index="groups_title">Skupiny</label>
+			<label index="groups">Vyberte skupiny uživatelů, které budou vypsány</label>
+                        <label index="tel">tel</label>
+			<label index="fax">fax</label>
 		</languageKey>
 	</data>
 </T3locallang>
