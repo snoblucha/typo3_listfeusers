@@ -48,7 +48,7 @@ plugin.tx_listfeusers_pi1{
 
             10 = TEXT
             10.field = telephone
-            10.wrap = <div class="tel">tel.: |</div>
+            10.dataWrap = <div class="tel">{LLL:EXT:listfeusers/pi1/locallang.xml:tel}: |</div>
             10.if.isTrue.field = telephone
 
             20 = TEXT
@@ -58,7 +58,7 @@ plugin.tx_listfeusers_pi1{
 
             30 = TEXT
             30.field = fax
-            30.wrap = <div class="fax">fax: |</div>
+            30.dataWrap = <div class="fax">{LLL:EXT:listfeusers/pi1/locallang.xml:fax}: |</div>
             30.if.isTrue.field = fax
 
             40 = TEXT
