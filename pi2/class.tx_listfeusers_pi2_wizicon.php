@@ -43,7 +43,7 @@ class tx_listfeusers_pi2_wizicon {
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_listfeusers_pi2'] = array(
-			'icon' => t3lib_extMgm::extRelPath('listfeusers') . 'pi2/ce_wiz.gif',
+			'icon' => t3lib_extMgm::extRelPath('listfeusers') . 'pi2/ce_wiz.png',
 			'title' => $GLOBALS['LANG']->getLLL('pi2_title', $LL),
 			'description' => $GLOBALS['LANG']->getLLL('pi2_plus_wiz_description', $LL),
 			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=listfeusers_pi2'
