@@ -22,10 +22,11 @@ plugin.tx_listfeusers_pi2{
             1 = IMAGE
             1 {
                 wrap = <div class="photo">|</div>
-                file = image
-                file.import =  uploads/tx_srfeuserregister/
+                # file = image
+                file.import = {$plugin.tx_listfeusers_pi1.image_directory}
                 file.import.field = image
-                file.width = 180
+                file.import.listNum = 0
+                file.width = {$plugin.tx_listfeusers_pi1.image_width}
 
                 required = 1
             }
@@ -45,27 +46,27 @@ plugin.tx_listfeusers_pi2{
 
             9 = TEXT
             9.field = date_of_birth
-            9.wrap = <tr><td>Geburtsdatum</td><td class="value">|</td></div>
+            9.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:birthday}</td><td class="value">|</td></div>
             9.if.isTrue.field = date_of_birth
 
             10 = TEXT
             10.field = telephone
-            10.wrap = <tr><td>Telefon</td><td class="value">|</td></div>
+            10.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:telephone}</td><td class="value">|</td></div>
             #10.if.isTrue.field = telephone
 
             20 = TEXT
             20.field = email
-            20.wrap = <tr><td>E-Mail</td><td class="value">|</td></tr>
+            20.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:email}</td><td class="value">|</td></tr>
             #20.if.isTrue.field = email
 
             30 = TEXT
             30.field = fax
-            30.wrap = <tr><td>fax:</td><td class="value">|</td></tr>
+            30.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:fax}:</td><td class="value">|</td></tr>
             30.if.isTrue.field = fax
 
             40 = TEXT
             40.field = www
-            40.wrap = <tr><td>Homepage</td><td class="value">|</td></tr>
+            40.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:homepage}</td><td class="value">|</td></tr>
             40.if.isTrue.field = www
             40.typolink.parameter.field = www
             40.typolink.extTarget = _blank
@@ -80,16 +81,17 @@ plugin.tx_listfeusers_pi2{
 
             10 = TEXT
             10.field = address
-            10.wrap = <tr><td>Adresse</td><td class="value">|<//tr>
+            10.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:address}</td><td class="value">|<//tr>
+
 
             19  = TEXT
             19.field = zip
-            19.wrap = <tr><td>PLZ</td><td class="value">|</tr>
+            19.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:zip}</td><td class="value">|</tr>
             #19.if.isTrue.field = zip
 
             20 = TEXT
             20.field = city
-            20.wrap = <tr><td>Wohnort</td><td class="value">|</tr>
+            20.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:city}</td><td class="value">|</tr>
             #20.if.isTrue.field = city
 
 
