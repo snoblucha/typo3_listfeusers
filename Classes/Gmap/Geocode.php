@@ -120,4 +120,33 @@ class Tx_Listfeusers_Gmap_Geocode extends Tx_Listfeusers_Gmap_Marker {
         return parent::getOptions() + $res;
     }
 
+    public function lookup()
+    {
+        $string = str_replace(" ", "+", urlencode($this->address));
+        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $string . "&sensor=false";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $details_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = json_decode(curl_exec($ch), true);
+
+        // If Status Code is ZERO_RESULTS, OVER_QUERY_LIMIT, REQUEST_DENIED or INVALID_REQUEST
+        if ($response['status'] != 'OK')
+        {
+            return false;
+        }
+
+        //print_r($response);
+        $geometry = $response['results'][0]['geometry'];
+
+        $longitude = $geometry['location']['lng'];
+        $latitude = $geometry['location']['lat'];
+
+        $this->setPos($latitude, $longitude);
+
+
+
+        return true;
+    }
+
 }

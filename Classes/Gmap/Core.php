@@ -1,6 +1,6 @@
 <?php
 
-defined('SYSPATH') or die('No direct script access.');
+
 
 /**
  * Contains the Google Map class.
@@ -63,7 +63,7 @@ class Tx_Listfeusers_Gmap_Core {
      * @var Array of Gmap_Geocode
      */
     private $geocode_request = array();
-    protected $view = NULL;
+    protected $view = 'gmap';
 
     /**
      * The factory method for instant method-chaining.
@@ -85,7 +85,7 @@ class Tx_Listfeusers_Gmap_Core {
      *
      * @param array $options
      */
-    public function __construct($id = null, $config = array())
+    public function __construct($id = null)
     {
         if ($id === null)
         {
@@ -202,8 +202,9 @@ class Tx_Listfeusers_Gmap_Core {
     public function autoCenter()
     {
         $center = $this->bounds->getCenter();
-
-        $this->setCenter($center->getLat(), $center->getLng());
+        if($center->getLat() && $center->getLng()) {
+            $this->setCenter($center->getLat(), $center->getLng());
+        }
         return $this;
     }
 
@@ -371,11 +372,11 @@ class Tx_Listfeusers_Gmap_Core {
         {
             if ($lat != NULL)
             {
-                $this->lat = Gmap::validate_latitude($lat);
+                $this->lat = Tx_Listfeusers_Gmap::validate_latitude($lat);
             }
             if ($lng != NULL)
             {
-                $this->lng = Gmap::validate_longitude($lng);
+                $this->lng = Tx_Listfeusers_Gmap::validate_longitude($lng);
             }
         }
         return $this;
@@ -499,7 +500,7 @@ class Tx_Listfeusers_Gmap_Core {
         if (!self::$enabled || $force_enable)
         {
             self::$enabled = true; //set the enabled flag
-            $GLOBALS['TSFE']->additionalHeaderData['google-map'] = '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor='.(Gmap::getSensor() ? 'true' : 'false').'"></script>';
+            $GLOBALS['TSFE']->additionalHeaderData['google-map'] = '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor='.(Tx_Listfeusers_Gmap::getSensor() ? 'true' : 'false').'"></script>';
             $GLOBALS['TSFE']->additionalHeaderData['listfeusers-map'] = '<script src="' . t3lib_extMgm::siteRelPath('listfeusers') . 'js/gmap.js" type="text/javascript"></script>';
         }
         else

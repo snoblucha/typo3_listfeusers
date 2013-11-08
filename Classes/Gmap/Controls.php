@@ -8,7 +8,7 @@ class Tx_Listfeusers_Gmap_Controls {
 
     /**
      *
-     * @var Gmap_Controls_Navigation
+     * @var Tx_Listfeusers_Gmap_Controls_Navigation
      */
     private $navigation;
 
@@ -32,7 +32,7 @@ class Tx_Listfeusers_Gmap_Controls {
 
     /**
      *
-     * @return Gmap_Controls_Navigation
+     * @return Tx_Listfeusers_Gmap_Controls_Navigation
      */
     public function getNavigation()
     {
@@ -53,7 +53,7 @@ class Tx_Listfeusers_Gmap_Controls {
     {
         $this->maptype = new Tx_Listfeusers_Gmap_Controls_Maptype();
         $this->scale = new Tx_Listfeusers_Gmap_Controls_Scale();
-        $this->navigation = new Gmap_Controls_Navigation();
+        $this->navigation = new Tx_Listfeusers_Gmap_Controls_Navigation();
 
     }
 

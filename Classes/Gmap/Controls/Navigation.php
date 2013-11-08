@@ -1,6 +1,6 @@
 <?php
 
-class Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Controls_Base {
+class Tx_Listfeusers_Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Controls_Base {
 
     const TYPE_SMALL = 'small';
     const TYPE_ZOOM_PAN = 'zoom_pan';
@@ -26,7 +26,7 @@ class Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Controls_Base {
     /**
      * Set the type of the maptype control horizontal|default|dropdown or use const from class TYPE_*
      * @param String $type
-     * @return Gmap_Controls_Navigation
+     * @return Tx_Listfeusers_Gmap_Controls_Navigation
      * @throws UnexpectedValueException
      */
     public function setType($type)

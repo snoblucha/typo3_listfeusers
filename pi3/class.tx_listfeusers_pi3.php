@@ -40,7 +40,7 @@
  * @package TYPO3
  * @subpackage tx_listfeusers
  */
-class tx_wecmap_pi3 extends tslib_pibase {
+class tx_listfeusers_pi3 extends tslib_pibase {
 
     var $prefixId = 'tx_wecmap_pi3';  // Same as class name
     var $scriptRelPath = 'pi3/class.tx_wecmap_pi3.php'; // Path to this script relative to the extension dir.
@@ -48,6 +48,23 @@ class tx_wecmap_pi3 extends tslib_pibase {
     var $pi_checkCHash = TRUE;
     var $sidebarLinks = array();
 
+    /**
+     * Map ID
+     * @var String
+     */
+    private $mapName;
+
+    /**
+     * Width of the map
+     * @var int/string
+     */
+    private $width;
+
+    /**
+     * Height of the map
+     * @var int/string
+     */
+    private $height;
 
     /**
      * Map object
@@ -55,12 +72,10 @@ class tx_wecmap_pi3 extends tslib_pibase {
      */
     private $map;
 
-
     /**
      *
      * @var array
      */
-
 
     /**
      * Draws a Google map containing all frontend users of a website.
@@ -76,60 +91,18 @@ class tx_wecmap_pi3 extends tslib_pibase {
         $this->conf = $conf;
         $this->pi_setPiVarDefaults();
         $this->pi_loadLL();
+        $this->init();
 
-
-
-
-        // check for WEC Map API static template inclusion
-        if (empty($this->conf['output']) && !(empty($this->conf['marker.']['title']) && empty($this->conf['marker.']['description'])))
-        {
-            global $LANG;
-            if (!is_object($LANG))
-            {
-                require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
-                $LANG = t3lib_div::makeInstance('language');
-                $LANG->init($GLOBALS['TSFE']->config['config']['language']);
-            }
-            $LANG->includeLLFile('EXT:listfeusers/locallang_db.xml');
-            $out .= $LANG->getLL('wecApiTemplateNotIncluded');
-            // syslog start
-            t3lib_div::sysLog('WEC Map API template not included on page id ' . $GLOBALS['TSFE']->id, 'listfeusers', 3);
-            // syslog end
-            return $out;
-        }
-
-        // check for WEC FE Map static template inclusion
         if (empty($this->conf['marker.']['title']) && empty($this->conf['marker.']['description']))
         {
-            global $LANG;
-            if (!is_object($LANG))
-            {
-                require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
-                $LANG = t3lib_div::makeInstance('language');
-                $LANG->init($GLOBALS['TSFE']->config['config']['language']);
-            }
-            $LANG->includeLLFile('EXT:listfeusers/locallang_db.xml');
-            $out .= $LANG->getLL('pi3TemplateNotIncluded');
-            // syslog start
-            t3lib_div::sysLog('WEC FE User template not included on page id ' . $GLOBALS['TSFE']->id, 'listfeusers', 3);
-            // syslog end
+            $out = 'Please set the marker template. You can do this by including a static template or define it manually';
             return $out;
         }
-
-
-        $this->init();
 
         $centerLat = $this->conf['centerLat'];
         $centerLong = $this->conf['centerLong'];
 
-        $zoomLevel = $this->conf['zoomLevel'];
-        $maxAutoZoom = $this->conf['maxAutoZoom'];
-
-        $static = $this->conf['static.']['enabled'];
-        $staticMode = $this->conf['static.']['mode'];
-        $staticExtent = $this->conf['static.']['extent'];
-        $staticUrlParam = $this->conf['static.']['urlParam'];
-        $staticLimit = $this->conf['static.']['limit'];
+        $zoomLevel = (int) $this->conf['zoomLevel'];
 
         $mapName = $this->conf['mapName'];
         if (empty($mapName))
@@ -138,99 +111,17 @@ class tx_wecmap_pi3 extends tslib_pibase {
         }
 
         $this->mapName = $mapName;
-
-
         /* Create the Map object */
-        $this->map = t3lib_div::makeInstance('tx_Listfeusers_Gmap', null, $this->width, $this->height, $centerLat, $centerLong, $zoomLevel, $mapName);
+        $this->map = t3lib_div::makeInstance('tx_Listfeusers_Gmap', $this->mapName);
+        $this->map->setCenter($centerLat, $centerLong);
+        $this->map->setSize($this->width, $this->height);
+        $this->map->setZoom($zoomLevel);
 
-
-
-        $this->map->setMaxAutoZoom($maxAutoZoom);
 
         $this->initControls();
 
-        if ($static)
-        {
-            $this->map->enableStatic($staticMode, $staticExtent, $staticUrlParam, $staticLimit);
-        }
-
-        // set up groups:
-        // country
-        if (is_array($this->conf['groups.']['country.']) || $this->private)
-        {
-            $countryConf = array();
-            $countryConf['icon'] = $this->conf['groups.']['country.']['icon.'];
-            $countryConf['minzoom'] = $this->conf['groups.']['country.']['zoom.']['min'];
-            $countryConf['maxzoom'] = $this->conf['groups.']['country.']['zoom.']['max'];
-            // country icon, if configured
-            if (!empty($countryConf['icon']['imagepath']))
-            {
-                $this->map->addMarkerIcon($countryConf['icon']);
-            }
-            else
-            {
-                $countryConf['icon']['iconID'] ? null : $countryConf['icon']['iconID'] = null;
-            }
-            $showCountries = true;
-        }
-        else
-        {
-            $showCountries = false;
-        }
-
-
-        // single
-        $singleConf = array();
-        $singleConf['icon'] = $this->conf['groups.']['single.']['icon.'];
-        $singleConf['minzoom'] = $this->conf['groups.']['single.']['zoom.']['min'];
-        $singleConf['maxzoom'] = $this->conf['groups.']['single.']['zoom.']['max'];
-
-        // country icon, if configured
-        if (!empty($singleConf['icon']['imagepath']))
-        {
-            $this->map->addMarkerIcon($singleConf['icon']);
-        }
-        else
-        {
-            $singleConf['icon']['iconID'] ? null : $singleConf['icon']['iconID'] = null;
-        }
-
-
-        // check whether to show the directions tab and/or prefill addresses and/or written directions
-        if ($this->showDirs && $this->showWrittenDirs && $this->prefillAddress)
-        {
-            $this->map->enableDirections(true, $mapName . '_directions');
-        }
-        if ($this->showDirs && $this->showWrittenDirs && !$this->prefillAddress)
-        {
-            $this->map->enableDirections(false, $mapName . '_directions');
-        }
-        if ($this->showDirs && !$this->showWrittenDirs && $this->prefillAddress)
-        {
-            $this->map->enableDirections(true);
-        }
-
-        if ($this->showDirs && !$this->showWrittenDirs && !$this->prefillAddress)
-        {
-            $this->map->enableDirections();
-        }
-
-
-
-        $streetField = tx_wecmap_shared::getAddressField('fe_users', 'street');
-        $cityField = tx_wecmap_shared::getAddressField('fe_users', 'city');
-        $stateField = tx_wecmap_shared::getAddressField('fe_users', 'state');
-        $zipField = tx_wecmap_shared::getAddressField('fe_users', 'zip');
-        $countryField = tx_wecmap_shared::getAddressField('fe_users', 'country');
-
-
-
         /* Select all frontend users */
         $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', $this->getUserFilter());
-
-        // create country and zip code array to keep track of which country and state we already added to the map.
-        // the point is to create only one marker per country on a higher zoom level to not
-        // overload the map with all the markers, and do the same with zip codes.
 
         $groups = $this->getGroups();
 
@@ -238,10 +129,11 @@ class tx_wecmap_pi3 extends tslib_pibase {
 
         while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($result)))
         {
-            $index = count($markers);
+
             $markers[] = $row;
-            $iconId =  $singleConf['icon']['iconID'];
+            $iconId = $singleConf['icon']['iconID'];
             $belongs_to = explode(',', $row['usergroup']);
+            $icon = null;
             foreach ($belongs_to as $group)
             {
                 $group = trim($group);
@@ -249,49 +141,50 @@ class tx_wecmap_pi3 extends tslib_pibase {
                 {
                     $groups[$group]['markers'] = array();
                 }
-                $groups[$group]['markers'][] = $index;
-                if(isset($groups[$group]['icon'])){
+                $groups[$group]['markers'][] = $row['uid'];
+                if (isset($groups[$group]['icon']))
+                {
                     $iconId = $groups[$group]['icon']['iconID'];
                     //return print_r($groups[$group]['icon'], true);
+                    $icon = $groups[$group]['icon']['imagepath'];
                 }
             }
 
 
             // make title and description
-            $title = tx_wecmap_shared::render($row, $this->conf['marker.']['title.']);
-            $description = tx_wecmap_shared::render($row, $this->conf['marker.']['description.']);
 
-            // unless we are using privacy, add individual markers as well
+            $title = $this->render($row, $this->conf['marker.']['title.']);
+            $description = $this->render($row, $this->conf['marker.']['description.']);
 
-            $marker = $this->map->addMarkerByAddress($row[$streetField],
-                    $row[$cityField],
-                    $row[$stateField],
-                    $row[$zipField],
-                    $row[$countryField],
-                    $title, $description,
-                    $singleConf['minzoom'],
-                    $singleConf['maxzoom'],
-                    $iconId
-                    );
+            if ($row['GPS'])
+            {
+                $GPS = t3lib_div::trimExplode(',', $row['GPS']);
+                $marker = Tx_Listfeusers_Gmap_Marker::factory($row['uid'], $GPS[0], $GPS[1]);
+                $marker->setTitle($title)->setContent($description)->setIcon($icon);
+                $this->map->addMarker($marker);
+
+            } else {
+                $geocode = Tx_Listfeusers_Gmap_Geocode::geocode($row['uid'], "{$row['address']}, {$row['city']}");
+                if ($geocode->lookup())
+                {
+                    $row['GPS'] = $geocode->getLat().','.$geocode->getLng();
+                    $db = new t3lib_DB;
+                    $db = $GLOBALS['TYPO3_DB'];
+                    $db->exec_UPDATEquery('fe_users', "uid={$row['uid']}", $row);
+
+                }
+                $geocode->setTitle($title)->setContent($description)->setIcon($icon);
+                //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
+                $this->map->addGeocode($geocode);
+            }
+
+
             $row['info_title'] = $title;
             $row['info_description'] = $description;
             $this->addSidebarItem($marker, $row);
         }
 
 
-        // gather all the content together
-        $content = array();
-        $content['map'] = $this->map->drawMap();
-
-        if ($this->showWrittenDirs)
-        {
-            $content['directions'] = $this->getDirections();
-        }
-
-        if ($this->showSidebar)
-        {
-            $content['sidebar'] = $this->getSidebar();
-        }
 
         // run all the content pieces through TS to assemble them
         $output = $this->map->render();
@@ -331,8 +224,7 @@ class tx_wecmap_pi3 extends tslib_pibase {
         $this->mapType = $this->pi_getFFvalue($piFlexForm, 'mapType', 'mapControls');
         empty($this->mapType) ? $this->mapType = $this->conf['controls.']['showMapType'] : null;
 
-        $this->googleEarth = $this->pi_getFFvalue($piFlexForm, 'googleEarth', 'mapControls');
-        empty($this->googleEarth) ? $this->googleEarth = $this->conf['controls.']['showGoogleEarth'] : null;
+
 
         $this->initialMapType = $this->pi_getFFvalue($piFlexForm, 'initialMapType', 'default');
         empty($this->initialMapType) ? $this->initialMapType = $this->conf['initialMapType'] : null;
@@ -351,7 +243,6 @@ class tx_wecmap_pi3 extends tslib_pibase {
 
         $this->prefillAddress = $this->pi_getFFvalue($piFlexForm, 'prefillAddress', 'default');
         empty($this->prefillAddress) ? $this->prefillAddress = $this->conf['prefillAddress'] : null;
-
 
         $this->showSidebar = $this->pi_getFFvalue($piFlexForm, 'showSidebar', 'default');
         empty($this->showSidebar) ? $this->showSidebar = $this->conf['showSidebar'] : null;
@@ -408,13 +299,13 @@ class tx_wecmap_pi3 extends tslib_pibase {
         // will be selected in the query
         if ($this->userGroups)
         {
-            $where .= tx_wecmap_shared::listQueryFromCSV('usergroup', $this->userGroups, 'fe_users', 'OR');
+            $where .= $this->listQueryFromCSV('usergroup', $this->userGroups, 'fe_users', 'OR');
         }
 
         // if a storage folder pid was specified, filter by that
         if ($this->pid)
         {
-            $where .= tx_wecmap_shared::listQueryFromCSV('pid', $this->pid, 'fe_users', 'OR');
+            $where .= $this->listQueryFromCSV('pid', $this->pid, 'fe_users', 'OR');
         }
 
         // filter out records that shouldn't be shown, e.g. deleted, hidden
@@ -423,47 +314,34 @@ class tx_wecmap_pi3 extends tslib_pibase {
         return $where;
     }
 
+    function listQueryFromCSV($field, $values, $table, $mode = 'AND')
+    {
+        $where = ' AND (';
+        $csv = t3lib_div::trimExplode(',', $values);
+        for ($i = 0; $i < count($csv); $i++)
+        {
+            if ($i >= 1)
+            {
+                $where .= ' ' . $mode . ' ';
+            }
+            $where .= $GLOBALS['TYPO3_DB']->listQuery($field, $csv[$i], $table);
+        }
 
+        return $where . ')';
+    }
 
     /**
      * Initializes Controls based on config
      */
     function initControls()
     {
-
-        // evaluate map controls based on configuration
-        if ($this->mapControlSize == 'large')
-        {
-            $this->map->addControl('largeMap');
-        }
-        else if ($this->mapControlSize == 'small')
-        {
-            $this->map->addControl('smallMap');
-        }
-        else if ($this->mapControlSize == 'zoomonly')
-        {
-            $this->map->addControl('smallZoom');
-        }
-
-        if ($this->scale)
-        {
-            $this->map->addControl('scale');
-        }
-        if ($this->overviewMap)
-        {
-            $this->map->addControl('overviewMap');
-        }
         if ($this->mapType)
         {
-            $this->map->addControl('mapType');
+            $this->map->getControls()->getMaptype()->setDisplay($this->maptype);
         }
         if ($this->initialMapType)
         {
-            $this->map->setType($this->initialMapType);
-        }
-        if ($this->googleEarth)
-        {
-            $this->map->addControl('googleEarth');
+            $this->map->setMaptype(new Tx_Listfeusers_Gmap_Maptype($this->initialMapType));
         }
     }
 
@@ -491,18 +369,20 @@ class tx_wecmap_pi3 extends tslib_pibase {
         return $res;
     }
 
+    /**
+     * Set the groups icons
+     * @param type $groups
+     */
     private function loadGroupIcons(&$groups)
     {
         foreach ($groups as $key => $group)
         {
-            $icon = $this->conf['groups.'][$group['uid'].'.']['icon.'];
-            if($icon){
-                $this->map->addMarkerIcon($icon);
+            $icon = $this->conf['groups.'][$group['uid'] . '.']['icon.'];
+            if ($icon)
+            {
                 $groups[$key]['icon'] = $icon;
             }
-
         }
-
     }
 
     private function renderGroups($groups)
@@ -512,10 +392,10 @@ class tx_wecmap_pi3 extends tslib_pibase {
         $index = 0;
         foreach ($groups as $group)
         {
-            $class = $index == 0 ? 'first' : ($index == count($groups)-1 ? 'last' : '');
-            $class .= ( ($index + 1) % $on_line == 0) ? 'row-last': '';
-            $res.= '<li class="group-toggler '.$class.'"><a href="#" class="active group-toggle" id="group-' . $group['uid'] . '">'
-                    . (isset($group['icon']) ? '<img src="'.$group['icon']['imagepath'].'" alt="'.$group['title'].'" title="'.$group['title'].'" />' : '')
+            $class = $index == 0 ? 'first' : ($index == count($groups) - 1 ? 'last' : '');
+            $class .= ( ($index + 1) % $on_line == 0) ? 'row-last' : '';
+            $res.= '<li class="group-toggler ' . $class . '"><a href="#" class="active group-toggle" id="group-' . $group['uid'] . '">'
+                    . (isset($group['icon']) ? '<img src="' . $group['icon']['imagepath'] . '" alt="' . $group['title'] . '" title="' . $group['title'] . '" />' : '')
                     . $group['title'] . ' [ ' . count($group['markers']) . ' ] '
                     . '</a></li>';
             $index++;
@@ -541,14 +421,14 @@ class tx_wecmap_pi3 extends tslib_pibase {
                      id = id.split("-")[1];
                      if(groups[id] == null || !groups[id]) return;
                      for (var i = 0; i < groups[id].length; i++) {
-                        WecMap.maps["' . $this->mapName . '"].markerArray[groups[id][i]].setMap(null);
+                        gmaps["' . $this->mapName . '"].markers[groups[id][i]].setMap(null);
                      }
                     }
                     function showMarkers(id){
                      id = id.split("-")[1];
                      if(groups[id] == null || !groups[id]) return;
                      for (var i = 0; i < groups[id].length; i++) {
-                        WecMap.maps["' . $this->mapName . '"].markerArray[groups[id][i]].setMap(WecMap.maps["' . $this->mapName . '"].map);
+                        gmaps["' . $this->mapName . '"].markers[groups[id][i]].setMap(gmaps["' . $this->mapName . '"].map);
                      }
                     }
                     jQuery(function(){
@@ -568,10 +448,26 @@ class tx_wecmap_pi3 extends tslib_pibase {
         return implode("\n", $res);
     }
 
+    /**
+     *
+     * @param array $data
+     * @param COA $conf
+     * @param type $table
+     * @return string
+     */
+    function render($data, $conf, $table = '')
+    {
+
+        $local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj.
+        $local_cObj->start($data, $table);
+        $output = $local_cObj->cObjGet($conf);
+        return $output;
+    }
+
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_wecmap_pi3.php'])
 {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_wecmap_pi3.php']);
 }
-?>
+

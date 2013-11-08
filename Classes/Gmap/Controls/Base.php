@@ -37,7 +37,7 @@ class Tx_Listfeusers_Gmap_Controls_Base {
         if(!isset(self::$positions[$position])){
             throw new UnexpectedValueException("Unknown position: $position");
         } else {
-            $this->position = Arr::get(self::$positions,$position);
+            $this->position = self::$positions[$position];
         }
         return $this;
     }

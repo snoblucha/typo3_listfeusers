@@ -1,4 +1,4 @@
-plugin.tx_wecmap_pi3 {
+plugin.tx_listfeusers_pi3 {
 
 	height = 500
 	width = 500
@@ -9,35 +9,11 @@ plugin.tx_wecmap_pi3 {
 	userGroups =
 	pid =
 
-	zoomLevel =
-	centerLat =
-	centerLong =
-	mapName =
+	zoomLevel = 10
+	centerLat = 54
+	centerLong = 14
+	mapName = 
 	maxAutoZoom =
-
-	#groups.country {
-		# this is just an example for how to add a new icon
-		# icon {
-		# 	iconID       = blue
-		# 	imagepath    = typo3conf/ext/listfeusers/images/mm_20_blue.png
-		# 	shadowpath   = typo3conf/ext/listfeusers/images/mm_20_shadow.png
-		# 	width        = 12
-		# 	height       = 20
-		# 	shadowWidth  = 22
-		# 	shadowHeight = 20
-		# 	anchorX      = 6
-		# 	anchorY      = 20
-		# 	infoAnchorX  = 5
-		# 	infoAnchorY  = 1
-		# }
-	#	zoom.min = 0
-	#	zoom.max = 2
-	#}
-
-	#groups.city {
-	#	zoom.min = 3
-	#	zoom.max = 7
-	#}
 
         groups.groups_per_line = 2
 
@@ -77,10 +53,6 @@ plugin.tx_wecmap_pi3 {
             pageId       = 26
         }
 
-	groups.single {
-		zoom.min = 0
-		zoom.max = 17
-	}
 
 	marker {
 		title = COA
@@ -117,15 +89,8 @@ plugin.tx_wecmap_pi3 {
 		}
 	}
 
-	defaulttitle 		< tx_wecmap_api.defaulttitle
-	defaultdescription 	< tx_wecmap_api.defaultdescription
-	homeicon			< tx_wecmap_api.homeicon
-	#sidebar 			< tx_wecmap_api.sidebar
-	#directions 			< tx_wecmap_api.directions
-	#sidebarItem 		< tx_wecmap_api.sidebarItem
-	#addressForm 		< tx_wecmap_api.addressForm
-	output 				< tx_wecmap_api.output
-	_CSS_DEFAULT_STYLE  < tx_wecmap_api._CSS_DEFAULT_STYLE
+
+
         _CSS_DEFAULT_STYLE (
             .group-togglers ul{
                 overflow: auto;

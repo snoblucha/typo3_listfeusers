@@ -3,14 +3,14 @@
         <default>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.mapTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:mapTitle</sheetTitle>
                     <cshFile>LLL:EXT:listfeusers/csh/locallang_csh_ff.xml</cshFile>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <mapWidth>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.mapWidth</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapWidth</label>
                             <config>
                                 <type>input</type>
                                 <size>5</size>
@@ -20,7 +20,7 @@
 
                     <mapHeight>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.mapHeight</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapHeight</label>
                             <config>
                                 <type>input</type>
                                 <size>5</size>
@@ -28,93 +28,38 @@
                         </TCEforms>
                     </mapHeight>
 
-                    <privacy>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.privacy</label>
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </privacy>
 
                     <initialMapType>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.initialMapType</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapType</label>
                             <config>
                                 <type>radio</type>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typeNormal</numIndex>
-                                        <numIndex index="1">G_NORMAL_MAP</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeRoadmap</numIndex>
+                                        <numIndex index="1">roadmap</numIndex>
                                     </numIndex>
                                     <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typeSatellite</numIndex>
-                                        <numIndex index="1">G_SATELLITE_MAP</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeSatellite</numIndex>
+                                        <numIndex index="1">satellite</numIndex>
                                     </numIndex>
                                     <numIndex index="2" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typeHybrid</numIndex>
-                                        <numIndex index="1">G_HYBRID_MAP</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeHybrid</numIndex>
+                                        <numIndex index="1">hybrid</numIndex>
                                     </numIndex>
                                     <numIndex index="3" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typePhysical</numIndex>
-                                        <numIndex index="1">G_PHYSICAL_MAP</numIndex>
-                                    </numIndex>
-                                    <numIndex index="4" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typeOSM</numIndex>
-                                        <numIndex index="1">G_OSM_MAP</numIndex>
-                                    </numIndex>
-                                    <numIndex index="5" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.typeOCM</numIndex>
-                                        <numIndex index="1">G_OCM_MAP</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeTerrain</numIndex>
+                                        <numIndex index="1">terrain</numIndex>
                                     </numIndex>
                                 </items>
+                                <default>roadmap</default>
                             </config>
                         </TCEforms>
                     </initialMapType>
-                    <showDirections>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.showDirs</label>
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </showDirections>
-                    <showWrittenDirections>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.showWrittenDirs</label>
-                            <!-- <displayCond>FIELD:showDirections:REQ:true</displayCond> -->
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </showWrittenDirections>
-                    <showRadiusSearch>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.showRadiusSearch</label>
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </showRadiusSearch>
-                    <showSidebar>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.showSidebar</label>
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </showSidebar>
-                    <prefillAddress>
-                        <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.prefillAddress</label>
-                            <config>
-                                <type>check</type>
-                            </config>
-                        </TCEforms>
-                    </prefillAddress>
+
                     <userGroups>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.userGroup</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:userGroup</label>
                             <config>
                                 <type>select</type>
                                 <foreign_table>fe_groups</foreign_table>
@@ -145,31 +90,31 @@
         <mapControls>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.controlsTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:controlsTitle</sheetTitle>
                     <cshFile>LLL:EXT:listfeusers/csh/locallang_csh_ff.xml</cshFile>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <mapControlSize>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conLargeMap</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMap</label>
                             <config>
                                 <type>radio</type>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conLargeMapL</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapL</numIndex>
                                         <numIndex index="1">large</numIndex>
                                     </numIndex>
                                     <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conLargeMapS</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapS</numIndex>
                                         <numIndex index="1">small</numIndex>
                                     </numIndex>
                                     <numIndex index="2" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conLargeMapZ</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapZ</numIndex>
                                         <numIndex index="1">zoomonly</numIndex>
                                     </numIndex>
                                     <numIndex index="3" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conNone</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conNone</numIndex>
                                         <numIndex index="1">none</numIndex>
                                     </numIndex>
                                 </items>
@@ -180,7 +125,7 @@
 
                     <overviewMap>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conOverview</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conOverview</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -189,7 +134,7 @@
 
                     <scale>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conScale</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conScale</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -198,7 +143,7 @@
 
                     <mapType>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/locallang_db.xml:tt_content.pi_flexform.conType</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conType</label>
                             <config>
                                 <type>check</type>
                             </config>

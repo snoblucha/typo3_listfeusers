@@ -32,7 +32,7 @@
  * @author	Web-Empowered Church Team <servant@webempoweredchurch.org>
  */
 
-class tx_wecmap_pi3_wizicon {
+class tx_listfeusers_pi3_wizicon {
     function proc($wizardItems)    {
         global $LANG;
 

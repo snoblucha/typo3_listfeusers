@@ -59,7 +59,7 @@ class Tx_Listfeusers_Gmap_Maptype {
         }
         else
         {
-            throw new UnexpectedValueException($type);
+            //throw new UnexpectedValueException($type);
         }
     }
 
