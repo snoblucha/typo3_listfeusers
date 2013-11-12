@@ -1,26 +1,34 @@
 <?php
 
-class Tx_Listfeusers_Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Controls_Base {
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Zomm
+ *
+ * @author snoblucha
+ */
+class Tx_Listfeusers_Gmap_Controls_Zoom extends Tx_Listfeusers_Gmap_Controls_Base {
 
     const TYPE_SMALL = 'small';
-    const TYPE_ZOOM_PAN = 'zoom_pan';
-    const TYPE_ANDROID = 'android';
+    const TYPE_LARGE = 'large';
     const TYPE_DEFAULT = 'default';
 
     private $type;
-
-    private static $navigations = array(
-        self::TYPE_SMALL => 'google.maps.NavigationControlStyle.SMALL',
-        self::TYPE_ZOOM_PAN => 'google.maps.NavigationControlStyle.ZOOM_PAN',
-        self::TYPE_ANDROID => 'google.maps.NavigationControlStyle.ANDROID',
+    private static $zoomTypes = array(
+        self::TYPE_SMALL => 'google.maps.ZoomControlStyle.SMALL',
+        self::TYPE_LARGE => 'google.maps.ZoomControlStyle.LARGE',
         self::TYPE_DEFAULT => 'google.maps.NavigationControlStyle.DEFAULT',
     );
 
     function __construct()
     {
         $this->setDisplay(true);
-        $this->setType(self::TYPE_DEFAULT);
         $this->setPosition(self::POSITION_TOP_LEFT);
+        $this->setType(self::TYPE_DEFAULT);
     }
 
     /**
@@ -31,18 +39,19 @@ class Tx_Listfeusers_Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Contro
      */
     public function setType($type)
     {
-        if (isset(self::$navigations[$type]))
+        if (isset(self::$zoomTypes[$type]))
         {
-            $this->type = self::$navigations[$type];
+            $this->type = self::$zoomTypes[$type];
         }
         else
         {
-            throw new UnexpectedValueException("Navigation $type is not recognized");
+            throw new UnexpectedValueException("Zoom $type is not recognized");
         }
         return $this;
     }
 
-    public function getOptions(){
+    public function getOptions()
+    {
         $res = parent::getOptions();
         $res['type'] = $this->type;
         return $res;

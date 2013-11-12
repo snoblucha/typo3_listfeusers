@@ -1,18 +1,20 @@
 plugin.tx_listfeusers_pi3 {
 
-	height = 500
-	width = 500
-	controls.mapControlSize =
-	controls.showOverviewMap =
-	controls.showMapType =
-	controls.showScale =
+	mapHeight = 500
+	mapWidth = 500
 	userGroups =
 	pid =
 
+        controls.mapControlSize =
+	controls.showMapOverview =
+	controls.showMapType =
+	controls.showScale =
+	controls.showNavigation =
+
 	zoomLevel = 10
-	centerLat = 54
+	centerLat = 50
 	centerLong = 14
-	mapName = 
+	mapName =
 	maxAutoZoom =
 
         groups.groups_per_line = 2

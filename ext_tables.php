@@ -41,6 +41,8 @@ if (TYPO3_MODE === 'BE')
     $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_listfeusers_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi1/class.tx_listfeusers_pi1_wizicon.php';
     $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_listfeusers_pi2_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi2/class.tx_listfeusers_pi2_wizicon.php';
     $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_listfeusers_pi3_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi3/class.tx_listfeusers_pi3_wizicon.php';
+
+    include_once(t3lib_extMgm::extPath($_EXTKEY).'pi3/class.tx_listfeusers_pi3.php');
 }
 
 //t3lib_extMgm::addStaticFile($_EXTKEY,'static//', '');

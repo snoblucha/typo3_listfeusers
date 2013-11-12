@@ -58,19 +58,31 @@ class tx_listfeusers_pi3 extends tslib_pibase {
      * Width of the map
      * @var int/string
      */
-    private $width;
+    private $mapWidth;
 
     /**
      * Height of the map
      * @var int/string
      */
-    private $height;
+    private $mapHeight;
 
     /**
      * Map object
      * @var Tx_Listfeusers_Gmap
      */
     private $map;
+
+    /**
+     * Show scale control ?
+     * @var boolean
+     */
+    private $showScale;
+
+    /**
+     * Show mapType control ?
+     * @var boolean
+     */
+    private $showMapType;
 
     /**
      *
@@ -114,7 +126,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         /* Create the Map object */
         $this->map = t3lib_div::makeInstance('tx_Listfeusers_Gmap', $this->mapName);
         $this->map->setCenter($centerLat, $centerLong);
-        $this->map->setSize($this->width, $this->height);
+        $this->map->setSize($this->mapWidth, $this->mapHeight);
         $this->map->setZoom($zoomLevel);
 
 
@@ -184,11 +196,6 @@ class tx_listfeusers_pi3 extends tslib_pibase {
                 //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
             }
             $this->map->autoCenter();
-
-
-            $row['info_title'] = $title;
-            $row['info_description'] = $description;
-            $this->addSidebarItem($marker, $row);
         }
 
 
@@ -208,93 +215,39 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->pi_initPIflexform();
         $piFlexForm = $this->cObj->data['pi_flexform'];
 
-        // get config from flexform or TS. Flexforms take precedence.
-        $this->width = $this->pi_getFFvalue($piFlexForm, 'mapWidth', 'default');
-        empty($this->width) ? $this->width = $this->conf['width'] : null;
+        $default = array('mapWidth', 'mapHeight', 'userGroups', 'pid', 'initialMapType');
 
-        $this->height = $this->pi_getFFvalue($piFlexForm, 'mapHeight', 'default');
-        empty($this->height) ? $this->height = $this->conf['height'] : null;
-        $this->height = $this->height;
-
-        $this->userGroups = $this->pi_getFFvalue($piFlexForm, 'userGroups', 'default');
-        empty($this->userGroups) ? $this->userGroups = $this->conf['userGroups'] : null;
-
-        $this->pid = $this->pi_getFFvalue($piFlexForm, 'pid', 'default');
-        empty($this->pid) ? $this->pid = $this->conf['pid'] : null;
-
-        $this->mapControlSize = $this->pi_getFFvalue($piFlexForm, 'mapControlSize', 'mapControls');
-        (empty($this->mapControlSize) || $this->mapControlSize == 'none') ? $this->mapControlSize = $this->conf['controls.']['mapControlSize'] : null;
-
-        $this->overviewMap = $this->pi_getFFvalue($piFlexForm, 'overviewMap', 'mapControls');
-        empty($this->overviewMap) ? $this->overviewMap = $this->conf['controls.']['showOverviewMap'] : null;
-
-        $this->mapType = $this->pi_getFFvalue($piFlexForm, 'mapType', 'mapControls');
-        empty($this->mapType) ? $this->mapType = $this->conf['controls.']['showMapType'] : null;
-
-
-
-        $this->initialMapType = $this->pi_getFFvalue($piFlexForm, 'initialMapType', 'default');
-        empty($this->initialMapType) ? $this->initialMapType = $this->conf['initialMapType'] : null;
-
-        $this->scale = $this->pi_getFFvalue($piFlexForm, 'scale', 'mapControls');
-        empty($this->scale) ? $this->scale = $this->conf['controls.']['showScale'] : null;
-
-        $this->private = $this->pi_getFFvalue($piFlexForm, 'privacy', 'default');
-        empty($this->private) ? $this->private = $this->conf['private'] : null;
-
-        $this->showDirs = $this->pi_getFFvalue($piFlexForm, 'showDirections', 'default');
-        empty($this->showDirs) ? $this->showDirs = $this->conf['showDirections'] : null;
-
-        $this->showWrittenDirs = $this->pi_getFFvalue($piFlexForm, 'showWrittenDirections', 'default');
-        empty($this->showWrittenDirs) ? $this->showWrittenDirs = $this->conf['showWrittenDirections'] : null;
-
-        $this->prefillAddress = $this->pi_getFFvalue($piFlexForm, 'prefillAddress', 'default');
-        empty($this->prefillAddress) ? $this->prefillAddress = $this->conf['prefillAddress'] : null;
-
-        $this->showSidebar = $this->pi_getFFvalue($piFlexForm, 'showSidebar', 'default');
-        empty($this->showSidebar) ? $this->showSidebar = $this->conf['showSidebar'] : null;
-    }
-
-    /**
-     * adds a sidebar item corresponding to the given marker.
-     * Does so only if the sidebar is enabled.
-     *
-     * @return void
-     * */
-    function addSidebarItem(&$marker, $data)
-    {
-        if (!($this->showSidebar && is_object($marker)))
-            return;
-        $data['onclickLink'] = $marker->getClickJS();
-        $this->sidebarLinks[] = tx_wecmap_shared::render($data, $this->conf['sidebarItem.']);
-    }
-
-    function getAddressForm()
-    {
-        $out = tx_wecmap_shared::render(array('map_id' => $this->mapName), $this->conf['addressForm.']);
-        return $out;
-    }
-
-    function getDirections()
-    {
-        $out = tx_wecmap_shared::render(array('map_id' => $this->mapName), $this->conf['directions.']);
-        return $out;
-    }
-
-    function getSidebar()
-    {
-        if (empty($this->sidebarLinks))
-            return null;
-
-        $c = '';
-
-        foreach ($this->sidebarLinks as $link)
+        foreach ($default as $key)
         {
-            $c .= $link;
+            $this->$key = $this->pi_getFFvalue($piFlexForm, $key, 'default');
         }
-        $out = tx_wecmap_shared::render(array('map_height' => $this->height, 'map_id' => $this->mapName, 'content' => $c), $this->conf['sidebar.']);
 
-        return $out;
+        $controls = array('mapControlSize', 'showMapOverview', 'showMapType',
+            'mapTypePosition', 'showScale', 'mapTypeType', 'showNavigation',
+            'navigationType', 'scalePosition', 'navigationPosition',
+            'showZoom', 'zoomPosition', 'zoomType', 'showPan','panPosition',
+            );
+
+        foreach ($controls as $key)
+        {
+            $this->$key = $this->pi_getFFvalue($piFlexForm, $key, 'mapControls');
+        }
+    }
+
+    public function flexformAddPositions($config)
+    {
+        $optionList = array();
+        // add first option
+        $values = array('top_right', 'right_top', 'right_center', 'right_bottom', 'bottom_right',
+            'bottom_center', 'bottom_left', 'left_bottom', 'left_center', 'left_top', 'top_left', 'top_center');
+        foreach ($values as $key => $val)
+        {
+            $name = $GLOBALS['LANG']->sL('LLL:EXT:listfeusers/pi3/locallang.xml:'.$val);
+            $optionList[$key] = array(0 =>$name , 1 => $val);
+        }
+
+        $config['items'] = array_merge($config['items'], $optionList);
+        return $config;
     }
 
     private function getUserFilter()
@@ -342,10 +295,29 @@ class tx_listfeusers_pi3 extends tslib_pibase {
      */
     function initControls()
     {
-        if ($this->mapType)
-        {
-            $this->map->getControls()->getMaptype()->setDisplay($this->maptype);
-        }
+
+        $this->map->getControls()->getMaptype()->setDisplay((boolean) $this->showMapType);
+        $this->map->getControls()->getMaptype()->setPosition($this->mapTypePosition);
+        $this->map->getControls()->getMaptype()->setType($this->mapTypeType);
+
+        $this->map->getControls()->getScale()->setDisplay((boolean) $this->showScale);
+        $this->map->getControls()->getScale()->setPosition($this->scalePosition);
+
+        $this->map->getControls()->getNavigation()->setDisplay((boolean) $this->showNavigation);
+        $this->map->getControls()->getNavigation()->setPosition($this->navigationPosition);
+        $this->map->getControls()->getNavigation()->setType($this->navigationType);
+
+        $this->map->getControls()->getZoom()->setDisplay((boolean) $this->showZoom);
+        $this->map->getControls()->getZoom()->setPosition($this->zoomPosition);
+        $this->map->getControls()->getZoom()->setType($this->zoomType);
+
+        $this->map->getControls()->getPan()->setDisplay((boolean) $this->showPan);
+        $this->map->getControls()->getPan()->setPosition($this->panPosition);
+
+
+
+
+
         if ($this->initialMapType)
         {
             $this->map->setMaptype(new Tx_Listfeusers_Gmap_Maptype($this->initialMapType));

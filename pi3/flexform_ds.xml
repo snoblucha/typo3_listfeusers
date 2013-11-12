@@ -4,7 +4,6 @@
             <ROOT>
                 <TCEforms>
                     <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:mapTitle</sheetTitle>
-                    <cshFile>LLL:EXT:listfeusers/csh/locallang_csh_ff.xml</cshFile>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -69,6 +68,15 @@
                             </config>
                         </TCEforms>
                     </userGroups>
+                    <showGroups>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:showGroups</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showGroups>
                     <pid>
                         <TCEforms>
                             <label>LLL:EXT:lang/locallang_general.php:LGL.startingpoint</label>
@@ -91,64 +99,142 @@
             <ROOT>
                 <TCEforms>
                     <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:controlsTitle</sheetTitle>
-                    <cshFile>LLL:EXT:listfeusers/csh/locallang_csh_ff.xml</cshFile>
                 </TCEforms>
                 <type>array</type>
                 <el>
-                    <mapControlSize>
+                    <showZoom>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMap</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoom</label>
                             <config>
-                                <type>radio</type>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showZoom>
+
+                    <zoomPosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoomPosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </zoomPosition>
+
+                     <zoomType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoomType</label>
+                            <config>
+                                <type>select</type>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapL</numIndex>
-                                        <numIndex index="1">large</numIndex>
-                                    </numIndex>
-                                    <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapS</numIndex>
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:small</numIndex>
                                         <numIndex index="1">small</numIndex>
                                     </numIndex>
-                                    <numIndex index="2" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conLargeMapZ</numIndex>
-                                        <numIndex index="1">zoomonly</numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:large</numIndex>
+                                        <numIndex index="1">large</numIndex>
                                     </numIndex>
-                                    <numIndex index="3" type="array">
-                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:conNone</numIndex>
-                                        <numIndex index="1">none</numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:default</numIndex>
+                                        <numIndex index="1">default</numIndex>
                                     </numIndex>
                                 </items>
-                                <default>3</default>
+                                <default>default</default>
                             </config>
                         </TCEforms>
-                    </mapControlSize>
+                    </zoomType>
 
-                    <overviewMap>
+                    <showScale>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conOverview</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlScale</label>
                             <config>
                                 <type>check</type>
+                                <default>1</default>
                             </config>
                         </TCEforms>
-                    </overviewMap>
+                    </showScale>
 
-                    <scale>
+                    <scalePosition>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conScale</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlScalePosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </scalePosition>
+
+                    <showPan>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlPan</label>
                             <config>
                                 <type>check</type>
+                                <default>1</default>
                             </config>
                         </TCEforms>
-                    </scale>
+                    </showPan>
 
-                    <mapType>
+                    <panPosition>
                         <TCEforms>
-                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:conType</label>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlPanPosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </panPosition>
+
+                    <showMapType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptype</label>
                             <config>
                                 <type>check</type>
+                                <default>1</default>
                             </config>
                         </TCEforms>
-                    </mapType>
+                    </showMapType>
+
+                    <mapTypePosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptypePosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_right</default>
+                            </config>
+                        </TCEforms>
+                    </mapTypePosition>
+
+                    <mapTypeType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptypeType</label>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:horizontal</numIndex>
+                                        <numIndex index="1">horizontal</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:dropdown</numIndex>
+                                        <numIndex index="1">dropdown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:default</numIndex>
+                                        <numIndex index="1">default</numIndex>
+                                    </numIndex>
+
+                                </items>
+                                <default>default</default>
+                            </config>
+                        </TCEforms>
+                    </mapTypeType>
+
                 </el>
             </ROOT>
         </mapControls>

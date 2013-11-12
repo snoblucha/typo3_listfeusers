@@ -59,8 +59,8 @@ function Gmap(options) {
 
         if (this.options['controls']['maptype']['display']) {
             options.mapTypeControl = true;
-            options.mapTypeControlOptions = {}
-            options.mapTypeControlOptions.style = eval(this.options.controls.maptype.style);
+            options.mapTypeControlOptions = {};
+            options.mapTypeControlOptions.style = eval(this.options.controls.maptype.type);
             options.mapTypeControlOptions.position = eval(this.options.controls.maptype.position);
         } else {
             options.mapTypeControl = false;
@@ -68,8 +68,8 @@ function Gmap(options) {
 
         if (this.options['controls']['navigation']['display']) {
             options.navigationControl = true;
-            options.navigationControlOptions = {}
-            options.navigationControlOptions.style = eval(this.options.controls.navigation.style);
+            options.navigationControlOptions = {};
+            options.navigationControlOptions.style = eval(this.options.controls.navigation.type);
             options.navigationControlOptions.position = eval(this.options.controls.navigation.position);
         } else {
             options.navigationControl = false;
@@ -77,18 +77,35 @@ function Gmap(options) {
 
         if (this.options['controls']['scale']['display']) {
             options.scaleControl = true;
-            options.scaleControlOptions = {}
-            options.scaleControlOptions.style = eval(this.options.controls.scale.style);
+            options.scaleControlOptions = {};
+            options.scaleControlOptions.style = google.maps.ScaleControlStyle.DEFAULT; //only one option
             options.scaleControlOptions.position = eval(this.options.controls.scale.position);
         } else {
             options.scaleControl = false;
+        }
+
+        if (this.options['controls']['zoom']['display']) {
+            options.zoomControl = true;
+            options.zoomControlOptions = {};
+            options.zoomControlOptions.style = eval(this.options.controls.zoom.type);
+            options.zoomControlOptions.position = eval(this.options.controls.zoom.position);
+        } else {
+            options.zoomControl = false;
+        }
+
+        if (this.options['controls']['pan']['display']) {
+            options.panControl = true;
+            options.panControlOptions = {};
+            options.panControlOptions.position = eval(this.options.controls.pan.position);
+        } else {
+            options.panControl = false;
         }
 
 
 
         this.map = new google.maps.Map(document.getElementById("gmap_" + this.options.id), options);
 
-        if (typeof onInitialized == 'function') {
+        if (typeof onInitialized === 'function') {
             onInitialized();
         }
 
