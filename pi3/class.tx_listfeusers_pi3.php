@@ -215,7 +215,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->pi_initPIflexform();
         $piFlexForm = $this->cObj->data['pi_flexform'];
 
-        $default = array('mapWidth', 'mapHeight', 'userGroups', 'pid', 'initialMapType');
+        $default = array('mapWidth', 'mapHeight', 'userGroups', 'pid', 'initialMapType', 'showGroups');
 
         foreach ($default as $key)
         {
@@ -225,8 +225,8 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $controls = array('mapControlSize', 'showMapOverview', 'showMapType',
             'mapTypePosition', 'showScale', 'mapTypeType', 'showNavigation',
             'navigationType', 'scalePosition', 'navigationPosition',
-            'showZoom', 'zoomPosition', 'zoomType', 'showPan','panPosition',
-            );
+            'showZoom', 'zoomPosition', 'zoomType', 'showPan', 'panPosition',
+        );
 
         foreach ($controls as $key)
         {
@@ -242,8 +242,8 @@ class tx_listfeusers_pi3 extends tslib_pibase {
             'bottom_center', 'bottom_left', 'left_bottom', 'left_center', 'left_top', 'top_left', 'top_center');
         foreach ($values as $key => $val)
         {
-            $name = $GLOBALS['LANG']->sL('LLL:EXT:listfeusers/pi3/locallang.xml:'.$val);
-            $optionList[$key] = array(0 =>$name , 1 => $val);
+            $name = $GLOBALS['LANG']->sL('LLL:EXT:listfeusers/pi3/locallang.xml:' . $val);
+            $optionList[$key] = array(0 => $name, 1 => $val);
         }
 
         $config['items'] = array_merge($config['items'], $optionList);
@@ -366,6 +366,10 @@ class tx_listfeusers_pi3 extends tslib_pibase {
 
     private function renderGroups($groups)
     {
+        if (!(boolean)$this->showGroups)
+        {
+            return '';
+        }
         $on_line = $this->conf['groups.']['groups_per_line'];
         $res = '<div class="group-togglers"><ul>';
         $index = 0;
