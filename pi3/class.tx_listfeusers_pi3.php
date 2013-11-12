@@ -162,21 +162,28 @@ class tx_listfeusers_pi3 extends tslib_pibase {
                 $marker = Tx_Listfeusers_Gmap_Marker::factory($row['uid'], $GPS[0], $GPS[1]);
                 $marker->setTitle($title)->setContent($description)->setIcon($icon);
                 $this->map->addMarker($marker);
-
-            } else {
+            }
+            else
+            {
                 $geocode = Tx_Listfeusers_Gmap_Geocode::geocode($row['uid'], "{$row['address']}, {$row['city']}");
+                $geocode->setTitle($title)->setContent($description)->setIcon($icon);
                 if ($geocode->lookup())
                 {
-                    $row['GPS'] = $geocode->getLat().','.$geocode->getLng();
-                    $db = new t3lib_DB;
+                    $row['GPS'] = $geocode->getLat() . ',' . $geocode->getLng();
                     $db = $GLOBALS['TYPO3_DB'];
                     $db->exec_UPDATEquery('fe_users', "uid={$row['uid']}", $row);
-
+                    $this->map->addMarker($geocode);
                 }
-                $geocode->setTitle($title)->setContent($description)->setIcon($icon);
+                else
+                {
+                    $this->map->addMarker($geocode);
+                }
+
+
+
                 //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
-                $this->map->addGeocode($geocode);
             }
+            $this->map->autoCenter();
 
 
             $row['info_title'] = $title;
