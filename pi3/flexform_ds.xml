@@ -27,6 +27,55 @@
                         </TCEforms>
                     </mapHeight>
 
+                    <centerLat>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:centerLat</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </centerLat>
+                    <centerLng>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:centerLng</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </centerLng>
+
+                    <autoCenter>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:autoCenter</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </autoCenter>
+
+                    <zoomLevel>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:zoomLevel</label>
+                            <config>
+                                <type>input</type>
+                                <default>10</default>
+                            </config>
+                        </TCEforms>
+                    </zoomLevel>
+
+                    <autoZoom>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:autoZoom</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </autoZoom>
+
 
                     <initialMapType>
                         <TCEforms>

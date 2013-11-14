@@ -85,6 +85,13 @@ class tx_listfeusers_pi3 extends tslib_pibase {
     private $showMapType;
 
     /**
+     * Groups
+     *
+     * @var array
+     */
+    private $groups;
+
+    /**
      *
      * @var array
      */
@@ -111,9 +118,6 @@ class tx_listfeusers_pi3 extends tslib_pibase {
             return $out;
         }
 
-        $centerLat = $this->conf['centerLat'];
-        $centerLong = $this->conf['centerLong'];
-
         $zoomLevel = (int) $this->conf['zoomLevel'];
 
         $mapName = $this->conf['mapName'];
@@ -125,85 +129,100 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->mapName = $mapName;
         /* Create the Map object */
         $this->map = t3lib_div::makeInstance('tx_Listfeusers_Gmap', $this->mapName);
-        $this->map->setCenter($centerLat, $centerLong);
+
         $this->map->setSize($this->mapWidth, $this->mapHeight);
-        $this->map->setZoom($zoomLevel);
+        $this->map->setZoom($this->zoomLevel);
 
 
         $this->initControls();
+        $this->groups = $this->getGroups();
+        $this->addMarkers();
 
-        /* Select all frontend users */
-        $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', $this->getUserFilter());
+        $this->map->setCenter($this->centerLat, $this->centerLng);
 
-        $groups = $this->getGroups();
-
-        $markers = array();
-
-        while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($result)))
+        if ((boolean) $this->autoCenter)
         {
-
-            $markers[] = $row;
-            $iconId = $singleConf['icon']['iconID'];
-            $belongs_to = explode(',', $row['usergroup']);
-            $icon = null;
-            foreach ($belongs_to as $group)
-            {
-                $group = trim($group);
-                if (!isset($groups[$group]['markers']))
-                {
-                    $groups[$group]['markers'] = array();
-                }
-                $groups[$group]['markers'][] = $row['uid'];
-                if (isset($groups[$group]['icon']))
-                {
-                    $iconId = $groups[$group]['icon']['iconID'];
-                    //return print_r($groups[$group]['icon'], true);
-                    $icon = $groups[$group]['icon']['imagepath'];
-                }
-            }
-
-
-            // make title and description
-
-            $title = $this->render($row, $this->conf['marker.']['title.']);
-            $description = $this->render($row, $this->conf['marker.']['description.']);
-
-            if ($row['GPS'])
-            {
-                $GPS = t3lib_div::trimExplode(',', $row['GPS']);
-                $marker = Tx_Listfeusers_Gmap_Marker::factory($row['uid'], $GPS[0], $GPS[1]);
-                $marker->setTitle($title)->setContent($description)->setIcon($icon);
-                $this->map->addMarker($marker);
-            }
-            else
-            {
-                $geocode = Tx_Listfeusers_Gmap_Geocode::geocode($row['uid'], "{$row['address']}, {$row['city']}");
-                $geocode->setTitle($title)->setContent($description)->setIcon($icon);
-                if ($geocode->lookup())
-                {
-                    $row['GPS'] = $geocode->getLat() . ',' . $geocode->getLng();
-                    $db = $GLOBALS['TYPO3_DB'];
-                    $db->exec_UPDATEquery('fe_users', "uid={$row['uid']}", $row);
-                    $this->map->addMarker($geocode);
-                }
-                else
-                {
-                    $this->map->addMarker($geocode);
-                }
-
-
-
-                //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
-            }
             $this->map->autoCenter();
+        }
+        if ((boolean) $this->autoZoom)
+        {
+            $this->map->autoZoom($this->zoomLevel);
         }
 
 
 
         // run all the content pieces through TS to assemble them
-        $output = $this->map->render();
+        $output  = $this->map->render();
+        $output .= $this->renderGroups();
         //return print_r($content, true);
-        return $this->pi_wrapInBaseClass($output . $this->renderGroups($groups));
+        return $this->pi_wrapInBaseClass($output );
+    }
+
+    /**
+     * Add markers to map
+     * @param array $groups
+     */
+    private function addMarkers()
+    {
+        $users = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', $this->getUserFilter());
+        while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($users)))
+        {
+
+            $this->addMarker($row, $this->getGroupIcon($row['usergroup']));
+            //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
+        }
+    }
+
+    private function getGroupIcon($belongs_to_line)
+    {
+        $belongs_to = explode(',', $belongs_to_line);
+        $icon = null;
+        foreach ($belongs_to as $group)
+        {
+            $group = trim($group);
+            if (!isset($this->groups[$group]['markers']))
+            {
+                $this->groups[$group]['markers'] = array();
+            }
+            $this->groups[$group]['markers'][] = $row['uid'];
+            if (isset($this->groups[$group]['icon']))
+            {
+                //return print_r($groups[$group]['icon'], true);
+                $icon = $this->groups[$group]['icon']['imagepath'];
+            }
+        }
+        return $icon;
+    }
+
+    public function addMarker($row, $icon)
+    {
+
+        $title = $this->render($row, $this->conf['marker.']['title.']);
+        $description = $this->render($row, $this->conf['marker.']['description.']);
+
+        if ($row['GPS'])
+        {
+            $GPS = t3lib_div::trimExplode(',', $row['GPS']);
+            $marker = Tx_Listfeusers_Gmap_Marker::factory($row['uid'], $GPS[0], $GPS[1]);
+            $marker->setTitle($title)->setContent($description)->setIcon($icon);
+            $this->map->addMarker($marker);
+        }
+        else
+        {
+            $geocode = Tx_Listfeusers_Gmap_Geocode::geocode($row['uid'], "{$row['address']}, {$row['city']}");
+            $geocode->setTitle($title)->setContent($description)->setIcon($icon);
+            if ($geocode->lookup())
+            {
+                $row['GPS'] = $geocode->getLat() . ',' . $geocode->getLng();
+                $db = $GLOBALS['TYPO3_DB'];
+                $db->exec_UPDATEquery('fe_users', "uid={$row['uid']}", $row);
+                $this->map->addMarker($geocode);
+            }
+            else
+            {
+                $this->map->addMarker($geocode);
+            }
+        }
     }
 
     /**
@@ -215,7 +234,8 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->pi_initPIflexform();
         $piFlexForm = $this->cObj->data['pi_flexform'];
 
-        $default = array('mapWidth', 'mapHeight', 'userGroups', 'pid', 'initialMapType', 'showGroups');
+        $default = array('mapWidth', 'mapHeight', 'userGroups', 'pid', 'initialMapType', 'showGroups',
+            'centerLat', 'centerLng', 'autoCenter', 'zoomLevel', 'autoZoom',);
 
         foreach ($default as $key)
         {
@@ -314,10 +334,6 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->map->getControls()->getPan()->setDisplay((boolean) $this->showPan);
         $this->map->getControls()->getPan()->setPosition($this->panPosition);
 
-
-
-
-
         if ($this->initialMapType)
         {
             $this->map->setMaptype(new Tx_Listfeusers_Gmap_Maptype($this->initialMapType));
@@ -364,18 +380,18 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         }
     }
 
-    private function renderGroups($groups)
+    private function renderGroups()
     {
-        if (!(boolean)$this->showGroups)
+        if (!(boolean) $this->showGroups)
         {
             return '';
         }
         $on_line = $this->conf['groups.']['groups_per_line'];
         $res = '<div class="group-togglers"><ul>';
         $index = 0;
-        foreach ($groups as $group)
+        foreach ($this->groups as $group)
         {
-            $class = $index == 0 ? 'first' : ($index == count($groups) - 1 ? 'last' : '');
+            $class = $index == 0 ? 'first' : ($index == count($this->groups) - 1 ? 'last' : '');
             $class .= ( ($index + 1) % $on_line == 0) ? 'row-last' : '';
             $res.= '<li class="group-toggler ' . $class . '"><a href="#" class="active group-toggle" id="group-' . $group['uid'] . '">'
                     . (isset($group['icon']) ? '<img src="' . $group['icon']['imagepath'] . '" alt="' . $group['title'] . '" title="' . $group['title'] . '" />' : '')
@@ -383,7 +399,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
                     . '</a></li>';
             $index++;
         }
-        $res.='</ul></div>' . $this->renderGroupsScript($groups);
+        $res.='</ul></div>' . $this->renderGroupsScript($this->groups);
         return $res;
     }
 

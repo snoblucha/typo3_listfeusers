@@ -178,7 +178,7 @@ class Tx_Listfeusers_Gmap_Core {
         //single bound
         if ($dlat == 0 && $dlon == 0)
         {
-            $this->zoom = $min_zoom; //keep set, or passed in
+            $this->setZoom($min_zoom); //keep set, or passed in
         }
         else
         {
@@ -433,7 +433,7 @@ class Tx_Listfeusers_Gmap_Core {
      */
     public function setZoom($zoom)
     {
-        $this->zoom = $zoom;
+        $this->zoom = (int) $zoom;
         return $this;
     }
 

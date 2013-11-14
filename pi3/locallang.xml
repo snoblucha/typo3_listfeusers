@@ -14,6 +14,12 @@
             <label index="mapTitle">Map Settings</label>
             <label index="mapWidth">Map width</label>
             <label index="mapHeight">Map height</label>
+            <label index="centerLat">Map center Latitude</label>
+            <label index="centerLng">Map center Longitude</label>
+            <label index="autoCenter">Map auto center</label>
+            <label index="zoomLevel">Zoom level</label>
+            <label index="autoZoom">Auto Zoom. Minimal Zoom level will be Zoom level.</label>
+
 
             <label index="showGroups">Show groups control panel</label>
 
