@@ -11,9 +11,14 @@
 			<label index="tt_content.list_type_pi3">List user map</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="tt_content.list_type_pi1">List users</label>
-			<label index="tt_content.list_type_pi2">Logged user</label>
-			<label index="tt_content.list_type_pi3">List user map</label>
+			<label index="tt_content.list_type_pi1">Liste Benutzern</label>
+			<label index="tt_content.list_type_pi2">Gespeichert Benutzer</label>
+			<label index="tt_content.list_type_pi3">Benutzerkarte</label>
+		</languageKey>
+        <languageKey index="cs" type="array">
+			<label index="tt_content.list_type_pi1">Výpis uživatelů</label>
+			<label index="tt_content.list_type_pi2">Přihlášený uživatel</label>
+			<label index="tt_content.list_type_pi3">Mapa s uživateli</label>
 		</languageKey>
 	</data>
 </T3locallang>
