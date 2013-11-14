@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_listfeusers_pi3&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pi3_title">WEC Frontend User Map With toggable groups</label>
+            <label index="pi3_plus_wiz_description">Adds a map to display frontend users. This map can display all users or only certain frontend groups. Groups of users are toggable.</label>
+
+
+
+            <label index="mapTitle">Map Settings</label>
+            <label index="mapWidth">Map width</label>
+            <label index="mapHeight">Map height</label>
+            <label index="centerLat">Map center Latitude</label>
+            <label index="centerLng">Map center Longitude</label>
+            <label index="autoCenter">Map auto center</label>
+            <label index="zoomLevel">Zoom level</label>
+            <label index="autoZoom">Auto Zoom. Minimal Zoom level will be Zoom level.</label>
+
+
+            <label index="showGroups">Show groups control panel</label>
+
+            <label index="mapType">Map type</label>
+            <label index="mapTypeRoadmap">Roadmap</label>
+            <label index="mapTypeSatellite">Satellite</label>
+            <label index="mapTypeTerrain">Terrain</label>
+            <label index="mapTypeHybrid">Hybrid</label>
+
+            <label index="userGroup">User groups to show on map</label>
+
+            <label index="controlsTitle">Map controls</label>
+
+            <label index="controlZoom">Show zoom control</label>
+            <label index="controlZoomPosition">Zoom position</label>
+            <label index="controlZoomType">Zoom type</label>
+
+            <label index="controlPan">Show pan control</label>
+            <label index="controlPanPosition">Show pan control</label>
+
+            <label index="controlScale"> Show Scale control</label>
+            <label index="controlScalePosition">Scale position</label>
+
+            <label index="controlMaptype">Show map type control</label>
+            <label index="controlMaptypeType">Mapt type style</label>
+            <label index="controlMaptypePosition">Maptype position</label>
+
+            <label index="controlNavigation">Show navigation</label>
+            <label index="controlNavigationPosition">Navigation position</label>
+            <label index="controlNavigationType">Navigation style</label>
+
+
+
+
+            <label index="top_center">Top center</label>
+            <label index="top_left">Top left</label>
+            <label index="top_right">Top right</label>
+
+            <label index="right_center">Right center</label>
+            <label index="right_top">Right top</label>
+            <label index="right_bottom">Right bottom</label>
+
+            <label index="left_top">Left top</label>
+            <label index="left_center">Left center</label>
+            <label index="left_bottom">Left bottom</label>
+
+            <label index="bottom_right">Bottom right</label>
+            <label index="bottom_left">Bottom left</label>
+            <label index="bottom_center">Bottom center</label>
+
+            <label index="zoom_pan">Zoom-Pan</label>
+            <label index="small">Small</label>
+            <label index="large">Large</label>
+            <label index="android">Android type</label>
+            <label index="default">Default</label>
+            <label index="dropdown">Dropdown</label>
+            <label index="horizontal">Horizontal</label>
+
+
+        </languageKey>
+
+        <languageKey index="de" type="array">
+        </languageKey>
+    </data>
+</T3locallang>

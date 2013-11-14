@@ -8,14 +8,21 @@
 		<languageKey index="default" type="array">
 			<label index="pi1_title">List users</label>
                         <label index="pi2_title">List logged user</label>
+                        <label index="pi3_title">Show map with users</label>
 			<label index="fe_pid">Page assigned to this group</label>
 			<label index="pi1_plus_wiz_description">List the frontend registered users</label>
 			<label index="pi2_plus_wiz_description">List the logged user</label>
+			<label index="pi3_plus_wiz_description">List the the users on the map</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">List users</label>
-			<label index="pi2_title">List logged user</label>
-                        <label index="fe_pid">Seite dieser Gruppe zugeordnet</label>
+                        <label index="pi2_title">List logged user</label>
+                        <label index="pi3_title">Show map with users</label>
+			<label index="fe_pid">Seite dieser Gruppe zugeordnet</label>
+			<label index="pi1_plus_wiz_description">List the frontend registered users</label>
+			<label index="pi2_plus_wiz_description">List the logged user</label>
+			<label index="pi3_plus_wiz_description">List the the users on the map</label>
+
 		</languageKey>
 	</data>
 </T3locallang>

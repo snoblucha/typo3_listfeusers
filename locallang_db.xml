@@ -8,10 +8,12 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">List users</label>
 			<label index="tt_content.list_type_pi2">List logged user</label>
+			<label index="tt_content.list_type_pi3">List user map</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_pi1">List users</label>
 			<label index="tt_content.list_type_pi2">Logged user</label>
+			<label index="tt_content.list_type_pi3">List user map</label>
 		</languageKey>
 	</data>
 </T3locallang>
