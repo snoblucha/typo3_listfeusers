@@ -1,0 +1,162 @@
+plugin.tx_listfeusers_pi3 {
+
+	mapHeight = 500
+	mapWidth = 500
+	userGroups =
+	pid =
+
+        controls.mapControlSize =
+	controls.showMapOverview =
+	controls.showMapType =
+	controls.showScale =
+	controls.showNavigation =
+
+	zoomLevel = 10
+	centerLat = 50
+	centerLong = 14
+	mapName =
+	maxAutoZoom =
+
+        groups.groups_per_line = 2
+
+        groups.1 {
+            icon {
+                iconID = netzwerker
+                imagepath =  typo3conf/ext/listfeusers/images/network.png
+                shadowpath   = typo3conf/ext/listfeusers/images/network.png
+		width        = 32
+		height       = 37
+		shadowWidth  = 32
+		shadowHeight = 37
+		anchorX      = 16
+		anchorY      = 37
+		infoAnchorX  = 16
+		infoAnchorY  = 1
+
+            }
+            pageId       = 14
+        }
+
+        groups.2 {
+            icon {
+                iconID = therapy
+                imagepath =  typo3conf/ext/listfeusers/images/therapy.png
+                shadowpath   = typo3conf/ext/listfeusers/images/therapy.png
+		width        = 32
+		height       = 37
+		shadowWidth  = 32
+		shadowHeight = 37
+		anchorX      = 16
+		anchorY      = 37
+		infoAnchorX  = 16
+		infoAnchorY  = 1
+
+            }
+            pageId       = 26
+        }
+
+
+	marker {
+		title = COA
+		title {
+			10 = TEXT
+			10.field = name
+			10.wrap = <div class="name">|</div>
+                        10.if.isTrue.field = name
+		}
+
+		description = COA
+		description {
+			10 = COA
+			10 {
+				10 = TEXT
+				10.field = address
+				10.wrap = <div class="street">|</div>
+                                10.if.isTrue.field = address
+
+				20 = TEXT
+				20.field = city
+				20.wrap = <div class="city">|</div>
+                                20.if.isTrue.field = city
+
+			}
+			10.wrap = <div class="address">|</div>
+
+			20 = TEXT
+			20.field = phone
+			20.wrap = <div class="phone">|</div>
+                        20.if.isTrue.field = phone
+
+
+		}
+	}
+
+
+
+        _CSS_DEFAULT_STYLE (
+            .group-togglers ul{
+                overflow: auto;
+                margin: 5px 0px;
+                padding: 0;
+            }
+
+            .group-toggler {
+                border: 1px solid #ddd;
+                width: 334px;
+                float: left;
+                padding: 1px;
+                list-style: none;
+                display: block;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+
+            .group-toggler.last, .group-toggler.row-last {
+                 margin-right: 0;
+             }
+            .group-toggler a {
+                display: block;
+                line-height: 37px;
+                height: 37px;
+                overflow: auto;
+                background-image: url('/typo3conf/ext/listfeusers/pi3/res/checkbox-off.png');
+                background-repeat: no-repeat;
+                background-position: 3px center;
+                padding-left: 24px;
+                color: #888;
+                text-decoration: none;
+                outline: 0;
+
+            }
+            .group-toggler a img {
+                float:left;
+                margin-right: 5px;
+            }
+            .group-toggler a.active {
+                background-color: #feFFfe;
+                background-image: url('/typo3conf/ext/listfeusers/pi3/res/checkbox-on.png');
+                color: #000;
+            }
+
+            .tx-wecmap-map .marker {
+
+            }
+
+            .tx-wecmap-map .name {
+                font-weight: bold;
+            }
+
+            .tx-wecmap-map .address {
+                font-size: 14px;
+            }
+            .tx-wecmap-map .dirmenu {
+                font-size: 14px;
+            }
+            .tx-wecmap-map .street {
+                white-space: nowrap;
+            }
+           .tx-wecmap-map div { line-height: normal ! important; }
+            .tx-wecmap-map .marker {
+            }
+        )
+}

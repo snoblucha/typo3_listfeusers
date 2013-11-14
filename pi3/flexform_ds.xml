@@ -1,0 +1,291 @@
+<T3DataStructure>
+    <sheets>
+        <default>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:mapTitle</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <mapWidth>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapWidth</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </mapWidth>
+
+                    <mapHeight>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapHeight</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </mapHeight>
+
+                    <centerLat>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:centerLat</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </centerLat>
+                    <centerLng>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:centerLng</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </centerLng>
+
+                    <autoCenter>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:autoCenter</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </autoCenter>
+
+                    <zoomLevel>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:zoomLevel</label>
+                            <config>
+                                <type>input</type>
+                                <default>10</default>
+                            </config>
+                        </TCEforms>
+                    </zoomLevel>
+
+                    <autoZoom>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:autoZoom</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </autoZoom>
+
+
+                    <initialMapType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:mapType</label>
+                            <config>
+                                <type>radio</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeRoadmap</numIndex>
+                                        <numIndex index="1">roadmap</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeSatellite</numIndex>
+                                        <numIndex index="1">satellite</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeHybrid</numIndex>
+                                        <numIndex index="1">hybrid</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:mapTypeTerrain</numIndex>
+                                        <numIndex index="1">terrain</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>roadmap</default>
+                            </config>
+                        </TCEforms>
+                    </initialMapType>
+
+                    <userGroups>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:userGroup</label>
+                            <config>
+                                <type>select</type>
+                                <foreign_table>fe_groups</foreign_table>
+                                <foreign_table_where>ORDER BY fe_groups.title</foreign_table_where>
+                                <size>10</size>
+                                <maxitems>50</maxitems>
+                            </config>
+                        </TCEforms>
+                    </userGroups>
+                    <showGroups>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:showGroups</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showGroups>
+                    <pid>
+                        <TCEforms>
+                            <label>LLL:EXT:lang/locallang_general.php:LGL.startingpoint</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>3</size>
+                                <maxitems>22</maxitems>
+                                <minitems>0</minitems>
+                                <show_thumbs>1</show_thumbs>
+                            </config>
+                        </TCEforms>
+                    </pid>
+                </el>
+            </ROOT>
+        </default>
+
+        <mapControls>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:listfeusers/pi3/locallang.xml:controlsTitle</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <showZoom>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoom</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showZoom>
+
+                    <zoomPosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoomPosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </zoomPosition>
+
+                     <zoomType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlZoomType</label>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:small</numIndex>
+                                        <numIndex index="1">small</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:large</numIndex>
+                                        <numIndex index="1">large</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:default</numIndex>
+                                        <numIndex index="1">default</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>default</default>
+                            </config>
+                        </TCEforms>
+                    </zoomType>
+
+                    <showScale>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlScale</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showScale>
+
+                    <scalePosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlScalePosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </scalePosition>
+
+                    <showPan>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlPan</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showPan>
+
+                    <panPosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlPanPosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_left</default>
+                            </config>
+                        </TCEforms>
+                    </panPosition>
+
+                    <showMapType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptype</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </showMapType>
+
+                    <mapTypePosition>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptypePosition</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>tx_listfeusers_pi3->flexformAddPositions</itemsProcFunc>
+                                <default>top_right</default>
+                            </config>
+                        </TCEforms>
+                    </mapTypePosition>
+
+                    <mapTypeType>
+                        <TCEforms>
+                            <label>LLL:EXT:listfeusers/pi3/locallang.xml:controlMaptypeType</label>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:horizontal</numIndex>
+                                        <numIndex index="1">horizontal</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:dropdown</numIndex>
+                                        <numIndex index="1">dropdown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:listfeusers/pi3/locallang.xml:default</numIndex>
+                                        <numIndex index="1">default</numIndex>
+                                    </numIndex>
+
+                                </items>
+                                <default>default</default>
+                            </config>
+                        </TCEforms>
+                    </mapTypeType>
+
+                </el>
+            </ROOT>
+        </mapControls>
+    </sheets>
+</T3DataStructure>
