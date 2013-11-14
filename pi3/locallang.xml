@@ -6,7 +6,7 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="pi3_title">WEC Frontend User Map With toggable groups</label>
+            <label index="pi3_title">Frontend User Map With toggable groups</label>
             <label index="pi3_plus_wiz_description">Adds a map to display frontend users. This map can display all users or only certain frontend groups. Groups of users are toggable.</label>
 
 
@@ -47,13 +47,6 @@
             <label index="controlMaptypeType">Mapt type style</label>
             <label index="controlMaptypePosition">Maptype position</label>
 
-            <label index="controlNavigation">Show navigation</label>
-            <label index="controlNavigationPosition">Navigation position</label>
-            <label index="controlNavigationType">Navigation style</label>
-
-
-
-
             <label index="top_center">Top center</label>
             <label index="top_left">Top left</label>
             <label index="top_right">Top right</label>
@@ -82,6 +75,137 @@
         </languageKey>
 
         <languageKey index="de" type="array">
+            <label index="pi3_title">Frontend Benutzerkarte mit Gruppen</label>
+            <label index="pi3_plus_wiz_description">Fügt eine Karte Frontend Benutzer anzuzeigen. Diese Karte können alle Benutzer oder nur bestimmte Gruppen Frontend.</label>
+
+
+
+            <label index="mapTitle">Karteneinstellungen</label>
+            <label index="mapWidth">Karte Breite</label>
+            <label index="mapHeight">Karte Höhe</label>
+            <label index="centerLat">Karte Latitude</label>
+            <label index="centerLng">Karte Longitude</label>
+            <label index="autoCenter">Karte Autom. zentrieren</label>
+            <label index="zoomLevel">Zoom-Ebene</label>
+            <label index="autoZoom">Auto-Zoom. Minimal Zoomstufe wird Zoomstufe sein.</label>
+
+
+            <label index="showGroups">Gruppen anzeigen Bedienfeld</label>
+
+            <label index="mapType">Karte Typ</label>
+            <label index="mapTypeRoadmap">Roadmap</label>
+            <label index="mapTypeSatellite">Satellite</label>
+            <label index="mapTypeTerrain">Terrain</label>
+            <label index="mapTypeHybrid">Hybrid</label>
+
+            <label index="userGroup">Benutzergruppen, um auf der Karte zeigen</label>
+
+            <label index="controlsTitle">Karte Kontrollen</label>
+
+            <label index="controlZoom">Anzeigen Zoom-Steuerung</label>
+            <label index="controlZoomPosition">Zoom Lage</label>
+            <label index="controlZoomType">Zoom Art</label>
+
+            <label index="controlPan">Zeigen Pan-Regler</label>
+            <label index="controlPanPosition">Pan Lage</label>
+
+            <label index="controlScale">Maßstab anzeigen</label>
+            <label index="controlScalePosition">Maßstab Lage</label>
+
+            <label index="controlMaptype">Karte-Art Control anzeigen</label>
+            <label index="controlMaptypeType">Karte-Art Art</label>
+            <label index="controlMaptypePosition">Karte-Art Lage</label>
+
+
+            <label index="top_center">Oben Mitte</label>
+            <label index="top_left">Oben Links</label>
+            <label index="top_right">Oben Rechts</label>
+
+            <label index="right_center">Rechts Mitte</label>
+            <label index="right_top">Rechts Oben</label>
+            <label index="right_bottom">Rechts Unten</label>
+
+            <label index="left_top">Links Oben</label>
+            <label index="left_center">Links Mitte</label>
+            <label index="left_bottom">Links Unten</label>
+
+            <label index="bottom_right">Unten Rechts</label>
+            <label index="bottom_left">Unten Links</label>
+            <label index="bottom_center">Unten Mitte</label>
+
+            <label index="zoom_pan">Zoom-Pan</label>
+            <label index="small">Klein</label>
+            <label index="large">Groß</label>
+            <label index="android">Android Art</label>
+            <label index="default">Default</label>
+            <label index="dropdown">Dropdownliste</label>
+            <label index="horizontal">Horizontale</label>
+        </languageKey>
+
+        <languageKey index="cs" type="array">
+            <label index="pi3_title">Zobrazení mapy s uživately z tabulky fe_users.</label>
+            <label index="pi3_plus_wiz_description">Zobrazí mapu s uživati z tabulky fe_users. Je možno zobrazit jen určitou skupinu uživatelů. Mapa obsahuje přepínač na schování uživatlů z jednotilvých skupin.</label>
+
+            <label index="mapTitle">Nastavení mapy</label>
+            <label index="mapWidth">Šířka mapy</label>
+            <label index="mapHeight">Výška mapy</label>
+            <label index="centerLat">Střed mapy šířka (Lat)</label>
+            <label index="centerLng">Střed mapy délka (Lng)</label>
+            <label index="autoCenter">Automaticky vycentrovat mapu</label>
+            <label index="zoomLevel">Zoom mapy</label>
+            <label index="autoZoom">Automatický zoom. Minimální zoom je zoom mapy.</label>
+
+
+            <label index="showGroups">Zobrazit přepínač skupin pod mapou</label>
+
+            <label index="mapType">Typ mapy</label>
+            <label index="mapTypeRoadmap">Silnice</label>
+            <label index="mapTypeSatellite">Satelitní</label>
+            <label index="mapTypeTerrain">Terénní</label>
+            <label index="mapTypeHybrid">Hybridní</label>
+
+            <label index="userGroup">Skupiny oživatelú, které budou zobrazeny na mapě.</label>
+
+            <label index="controlsTitle">Ovladače mapy</label>
+
+            <label index="controlZoom">Zobrazit ovládání zoomu</label>
+            <label index="controlZoomPosition">Pozice ovládání zoomu</label>
+            <label index="controlZoomType">Styl ovládání zoomu</label>
+
+            <label index="controlPan">Zobrazit posouvací kříž</label>
+            <label index="controlPanPosition">Pozice posouvacího kříže</label>
+
+            <label index="controlScale">Zobrazit měřítko</label>
+            <label index="controlScalePosition">Pozice měřítka</label>
+
+            <label index="controlMaptype">Zobrazit ovladač typu mapy</label>
+            <label index="controlMaptypeType">Styl ovladače typu mapy</label>
+            <label index="controlMaptypePosition">Pozice ovladače typu mapy</label>
+
+
+            <label index="top_center">Nahoře Střed</label>
+            <label index="top_left">Nahoře vlevo</label>
+            <label index="top_right">Nahoře v pravo</label>
+
+            <label index="right_center">Vpravo střed</label>
+            <label index="right_top">Vpravo Nahoře</label>
+            <label index="right_bottom">Vpravo dole</label>
+
+            <label index="left_top">Vlevo nahoře</label>
+            <label index="left_center">Vlevo střed</label>
+            <label index="left_bottom">Vlevo dole</label>
+
+            <label index="bottom_right">Dole vpravo</label>
+            <label index="bottom_left">Dole vlevo</label>
+            <label index="bottom_center">Dole střed</label>
+
+            <label index="zoom_pan">Zoom-Pan</label>
+            <label index="small">Malé</label>
+            <label index="large">Velké</label>
+            <label index="android">Android</label>
+            <label index="default">Default</label>
+            <label index="dropdown">Rozbalovací</label>
+            <label index="horizontal">Horizontální</label>
         </languageKey>
     </data>
 </T3locallang>
