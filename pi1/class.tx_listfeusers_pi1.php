@@ -32,7 +32,7 @@
  * @package	TYPO3
  * @subpackage	tx_listfeusers
  */
-class tx_listfeusers_pi1 extends tslib_pibase {
+class tx_listfeusers_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
     public $prefixId = 'tx_listfeusers_pi1';  // Same as class name
     public $scriptRelPath = 'pi1/class.tx_listfeusers_pi1.php'; // Path to this script relative to the extension dir.
@@ -69,7 +69,8 @@ class tx_listfeusers_pi1 extends tslib_pibase {
 
         while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($result)))
         {
-            $local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj.
+//            \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::
+            $local_cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'); // Local cObj.
             $local_cObj->start($row, '');
             $content .= $local_cObj->cObjGet($this->conf['user.']);
         }
@@ -119,7 +120,7 @@ class tx_listfeusers_pi1 extends tslib_pibase {
                 $where .= $GLOBALS['TYPO3_DB']->listQuery('usergroup', $csv[$i], 'fe_users');
             }
             $where .= ')';
-            //$where .= "usergroup in ('')";tx_wecmap_shared::listQueryFromCSV('usergroup', $this->userGroups, 'fe_users', 'OR');
+
         }
 
 

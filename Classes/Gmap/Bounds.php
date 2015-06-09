@@ -66,6 +66,7 @@ class Tx_Listfeusers_Gmap_Bounds {
      * @return \Tx_Listfeusers_Gmap_Marker
      */
     public function getCenter(){
+
         return new Tx_Listfeusers_Gmap_Marker('center', 0.5 * ($this->top_lat + $this->bottom_lat), 0.5 * ($this->top_lng + $this->bottom_lng));
     }
 

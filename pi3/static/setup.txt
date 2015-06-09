@@ -138,25 +138,25 @@ plugin.tx_listfeusers_pi3 {
                 color: #000;
             }
 
-            .tx-wecmap-map .marker {
+            .tx-listfeusers-map .marker {
 
             }
 
-            .tx-wecmap-map .name {
+            .tx-listfeusers-map .name {
                 font-weight: bold;
             }
 
-            .tx-wecmap-map .address {
+            .tx-listfeusers-map .address {
                 font-size: 14px;
             }
-            .tx-wecmap-map .dirmenu {
+            .tx-listfeusers-map .dirmenu {
                 font-size: 14px;
             }
-            .tx-wecmap-map .street {
+            .tx-listfeusers-map .street {
                 white-space: nowrap;
             }
-           .tx-wecmap-map div { line-height: normal ! important; }
-            .tx-wecmap-map .marker {
+           .tx-listfeusers-map div { line-height: normal ! important; }
+            .tx-listfeusers-map .marker {
             }
         )
 }

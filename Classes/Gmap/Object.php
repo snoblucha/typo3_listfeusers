@@ -13,6 +13,15 @@ class Tx_Listfeusers_Gmap_Object {
         return $this->id;
     }
 
+    /**
+     * @param mixed $id
+     */
+    public function setId( $id ) {
+        $this->id = $id;
+    }
+
+
+
     function __construct($id)
     {
         $this->id = $id;

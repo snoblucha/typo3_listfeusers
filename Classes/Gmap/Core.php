@@ -202,9 +202,11 @@ class Tx_Listfeusers_Gmap_Core {
     public function autoCenter()
     {
         $center = $this->bounds->getCenter();
+
         if($center->getLat() && $center->getLng()) {
             $this->setCenter($center->getLat(), $center->getLng());
         }
+
         return $this;
     }
 
@@ -403,7 +405,7 @@ class Tx_Listfeusers_Gmap_Core {
     {
         if (!is_bool($sensor))
         {
-            throw new Exception('The parameter must be boolean.');
+//            throw new Exception('The parameter must be boolean.');
         } // if
 
         self::$sensor = $sensor;
@@ -461,7 +463,7 @@ class Tx_Listfeusers_Gmap_Core {
     {
         if ($lat > 180 OR $lat < -180)
         {
-            throw new Exception('Latitude has to lie between -180.0 and 180.0! Set to '.$lat);
+//            throw new Exception('Latitude has to lie between -180.0 and 180.0! Set to '.$lat);
         } // if
 
         return $lat;
@@ -479,7 +481,7 @@ class Tx_Listfeusers_Gmap_Core {
     {
         if ($lng > 90 OR $lng < -90)
         {
-            throw new Exception('Longitude has to lie between -90.0 and 90.0! Set to :lng');
+//            throw new Exception('Longitude has to lie between -90.0 and 90.0! Set to :lng');
         } // if
 
         return $lng;

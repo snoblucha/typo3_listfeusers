@@ -28,7 +28,7 @@ class Tx_Listfeusers_View {
      */
     public function setView($view)
     {
-        $this->path = t3lib_div::getFileAbsFileName("EXT:listfeusers/Views/$view.php");
+        $this->path = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:listfeusers/Views/$view.php");
         return $this;
     }
 
@@ -61,7 +61,7 @@ class Tx_Listfeusers_View {
 
     public function __toString()
     {
-        $this->render();
+        return $this->render();
     }
 
 }
