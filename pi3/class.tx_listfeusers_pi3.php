@@ -40,10 +40,10 @@
  * @package TYPO3
  * @subpackage tx_listfeusers
  */
-class tx_listfeusers_pi3 extends tslib_pibase {
+class tx_listfeusers_pi3 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
-    var $prefixId = 'tx_wecmap_pi3';  // Same as class name
-    var $scriptRelPath = 'pi3/class.tx_wecmap_pi3.php'; // Path to this script relative to the extension dir.
+    var $prefixId = 'tx_listfeusers_pi3';  // Same as class name
+    var $scriptRelPath = 'pi3/class.tx_listfeusers_pi3.php'; // Path to this script relative to the extension dir.
     var $extKey = 'listfeusers'; // The extension key.
     var $pi_checkCHash = TRUE;
     var $sidebarLinks = array();
@@ -128,15 +128,17 @@ class tx_listfeusers_pi3 extends tslib_pibase {
 
         $this->mapName = $mapName;
         /* Create the Map object */
-        $this->map = t3lib_div::makeInstance('tx_Listfeusers_Gmap', $this->mapName);
+        $this->map = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_Listfeusers_Gmap', $this->mapName);
 
         $this->map->setSize($this->mapWidth, $this->mapHeight);
         $this->map->setZoom($this->zoomLevel);
 
 
         $this->initControls();
+
         $this->groups = $this->getGroups();
         $this->addMarkers();
+
 
         $this->map->setCenter($this->centerLat, $this->centerLng);
 
@@ -144,6 +146,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         {
             $this->map->autoCenter();
         }
+
         if ((boolean) $this->autoZoom)
         {
             $this->map->autoZoom($this->zoomLevel);
@@ -155,6 +158,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $output  = $this->map->render();
         $output .= $this->renderGroups();
         //return print_r($content, true);
+
         return $this->pi_wrapInBaseClass($output );
     }
 
@@ -168,23 +172,27 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($users)))
         {
 
-            $this->addMarker($row, $this->getGroupIcon($row['usergroup']));
+
+            $this->addMarker($row, $this->getGroupIcon($row['usergroup'],$row['uid']));
             //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
         }
     }
 
-    private function getGroupIcon($belongs_to_line)
+    private function getGroupIcon($belongs_to_line,$user_id)
     {
         $belongs_to = explode(',', $belongs_to_line);
         $icon = null;
         foreach ($belongs_to as $group)
         {
             $group = trim($group);
+            if(!isset($this->groups[$group])){
+                continue;
+            }
             if (!isset($this->groups[$group]['markers']))
             {
                 $this->groups[$group]['markers'] = array();
             }
-            $this->groups[$group]['markers'][] = $row['uid'];
+            $this->groups[$group]['markers'][] = $user_id;
             if (isset($this->groups[$group]['icon']))
             {
                 //return print_r($groups[$group]['icon'], true);
@@ -297,7 +305,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
     function listQueryFromCSV($field, $values, $table, $mode = 'AND')
     {
         $where = ' AND (';
-        $csv = t3lib_div::trimExplode(',', $values);
+        $csv = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $values);
         for ($i = 0; $i < count($csv); $i++)
         {
             if ($i >= 1)
@@ -317,6 +325,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
     {
 
         $this->map->getControls()->getMaptype()->setDisplay((boolean) $this->showMapType);
+
         $this->map->getControls()->getMaptype()->setPosition($this->mapTypePosition);
         $this->map->getControls()->getMaptype()->setType($this->mapTypeType);
 
@@ -324,8 +333,11 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         $this->map->getControls()->getScale()->setPosition($this->scalePosition);
 
         $this->map->getControls()->getNavigation()->setDisplay((boolean) $this->showNavigation);
+
         $this->map->getControls()->getNavigation()->setPosition($this->navigationPosition);
+
         $this->map->getControls()->getNavigation()->setType($this->navigationType);
+
 
         $this->map->getControls()->getZoom()->setDisplay((boolean) $this->showZoom);
         $this->map->getControls()->getZoom()->setPosition($this->zoomPosition);
@@ -338,6 +350,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
         {
             $this->map->setMaptype(new Tx_Listfeusers_Gmap_Maptype($this->initialMapType));
         }
+
     }
 
     /**
@@ -372,12 +385,14 @@ class tx_listfeusers_pi3 extends tslib_pibase {
     {
         foreach ($groups as $key => $group)
         {
-            $icon = $this->conf['groups.'][$group['uid'] . '.']['icon.'];
+            $key;
+            $icon = $this->conf['groups.']["{$group['uid']}."]['icon.'];
             if ($icon)
             {
                 $groups[$key]['icon'] = $icon;
             }
         }
+
     }
 
     private function renderGroups()
@@ -405,12 +420,13 @@ class tx_listfeusers_pi3 extends tslib_pibase {
 
     private function renderGroupsScript($groups)
     {
+
         $res = array();
         $res[] = '<script type="text/javascript">';
         $res[] = 'var groups = {};';
         foreach ($groups as $group)
         {
-            $res[] .= "groups[{$group[uid]}] = " . json_encode($group['markers']) . ';';
+            $res[] .= "groups[{$group['uid']}] = " . json_encode($group['markers']) . ';';
         }
 
         $res[] = '';
@@ -457,7 +473,7 @@ class tx_listfeusers_pi3 extends tslib_pibase {
     function render($data, $conf, $table = '')
     {
 
-        $local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj.
+        $local_cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'); // Local cObj.
         $local_cObj->start($data, $table);
         $output = $local_cObj->cObjGet($conf);
         return $output;
@@ -465,8 +481,8 @@ class tx_listfeusers_pi3 extends tslib_pibase {
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_wecmap_pi3.php'])
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_listfeusersp_pi3.php'])
 {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_wecmap_pi3.php']);
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/listfeusers/pi3/class.tx_listfeusers_pi3.php']);
 }
 

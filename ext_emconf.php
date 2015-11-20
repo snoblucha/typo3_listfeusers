@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'conflicts' => '',
 	'priority' => '',
 	'module' => 'cm1',
-	'state' => 'beta',
+	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => 0,
 	'createDirs' => '',
@@ -29,10 +29,12 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => 'Lebrija invest s.r.o.',
-	'version' => '0.9.2',
+	'version' => '0.9.10',
 	'constraints' => array(
 		'depends' => array(
 			'felogin' => '',
+			'cms' => '',
+			'typo3' => '6.2.0-7.2.99',
 		),
 		'conflicts' => array(
 		),

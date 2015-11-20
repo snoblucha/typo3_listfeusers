@@ -37,7 +37,7 @@ class Tx_Listfeusers_Gmap_Controls_Navigation extends Tx_Listfeusers_Gmap_Contro
         }
         else
         {
-            throw new UnexpectedValueException("Navigation $type is not recognized");
+//            throw new UnexpectedValueException("Navigation $type is not recognized");
         }
         return $this;
     }

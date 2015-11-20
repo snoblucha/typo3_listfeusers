@@ -34,7 +34,7 @@ class Tx_Listfeusers_Gmap_Controls_Maptype extends Tx_Listfeusers_Gmap_Controls_
         if(isset(self::$maptypes[$type])){
             $this->type = self::$maptypes[$type];
         } else {
-            throw new UnexpectedValueException("Maptype $type is not recognized");
+//            throw new UnexpectedValueException("Maptype $type is not recognized");
         }
         return $this;
 

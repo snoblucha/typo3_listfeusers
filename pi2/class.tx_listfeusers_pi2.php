@@ -32,7 +32,7 @@
  * @package	TYPO3
  * @subpackage	tx_listfeusers
  */
-class tx_listfeusers_pi2 extends tslib_pibase {
+class tx_listfeusers_pi2 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
     public $prefixId = 'tx_listfeusers_pi2';  // Same as class name
     public $scriptRelPath = 'pi2/class.tx_listfeusers_pi2.php'; // Path to this script relative to the extension dir.
@@ -63,8 +63,10 @@ class tx_listfeusers_pi2 extends tslib_pibase {
         $user = $GLOBALS['TSFE']->fe_user->user;
         $user['date_of_birth'] = date('d.m.Y', $user['date_of_birth']);
 
-        $local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj.
+        $local_cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'); // Local cObj.
         $local_cObj->start($user, '');
+
+
         $content = $local_cObj->cObjGet($this->conf['user.']);
         //$content .= print_r($user, true);
 

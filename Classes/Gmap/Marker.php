@@ -24,10 +24,11 @@ class Tx_Listfeusers_Gmap_Marker extends Tx_Listfeusers_Gmap_Object{
     public function __construct($id, $lat, $lng)
     {
         parent::__construct($id);
-        $this->lat = $lat;
-        $this->lng = $lng;
-        $this->id = $id;
+        $this->lat = floatval($lat);
+        $this->lng = floatval($lng);
+        $this->setId($id);
         $this->title = $id;
+
     }
 
     /**

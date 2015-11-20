@@ -45,7 +45,7 @@ class Tx_Listfeusers_Gmap_Controls_Zoom extends Tx_Listfeusers_Gmap_Controls_Bas
         }
         else
         {
-            throw new UnexpectedValueException("Zoom $type is not recognized");
+//            throw new UnexpectedValueException("Zoom $type is not recognized");
         }
         return $this;
     }
