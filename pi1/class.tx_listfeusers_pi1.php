@@ -56,6 +56,7 @@ class tx_listfeusers_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
         $GLOBALS['TSFE']->additionalHeaderData[$this->extKey] = '<link rel="profile" href="http://microformats.org/profile/hcard" />';
 
+
         if (!isset($this->conf['user.']))
         {
              return "Include template file in page template!";
@@ -110,7 +111,7 @@ class tx_listfeusers_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         {
             $values = $this->lConf['userGroups'];
             $where .= ' AND (';
-            $csv = t3lib_div::trimExplode(',', $values);
+            $csv = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $values);
             for ($i = 0; $i < count($csv); $i++)
             {
                 if ($i >= 1)

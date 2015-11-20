@@ -172,23 +172,27 @@ class tx_listfeusers_pi3 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($users)))
         {
 
-            $this->addMarker($row, $this->getGroupIcon($row['usergroup']));
+
+            $this->addMarker($row, $this->getGroupIcon($row['usergroup'],$row['uid']));
             //$marker = $this->map->addMarkerByAddress( $title, $description, $singleConf['minzoom'], $singleConf['maxzoom'], $iconId            );
         }
     }
 
-    private function getGroupIcon($belongs_to_line)
+    private function getGroupIcon($belongs_to_line,$user_id)
     {
         $belongs_to = explode(',', $belongs_to_line);
         $icon = null;
         foreach ($belongs_to as $group)
         {
             $group = trim($group);
+            if(!isset($this->groups[$group])){
+                continue;
+            }
             if (!isset($this->groups[$group]['markers']))
             {
                 $this->groups[$group]['markers'] = array();
             }
-//            $this->groups[$group]['markers'][] = $group['uid'];
+            $this->groups[$group]['markers'][] = $user_id;
             if (isset($this->groups[$group]['icon']))
             {
                 //return print_r($groups[$group]['icon'], true);
@@ -381,12 +385,14 @@ class tx_listfeusers_pi3 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     {
         foreach ($groups as $key => $group)
         {
-            $icon = $this->conf['groups.'][$group['uid'] . '.']['icon.'];
+            $key;
+            $icon = $this->conf['groups.']["{$group['uid']}."]['icon.'];
             if ($icon)
             {
                 $groups[$key]['icon'] = $icon;
             }
         }
+
     }
 
     private function renderGroups()
@@ -414,12 +420,13 @@ class tx_listfeusers_pi3 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
     private function renderGroupsScript($groups)
     {
+
         $res = array();
         $res[] = '<script type="text/javascript">';
         $res[] = 'var groups = {};';
         foreach ($groups as $group)
         {
-            $res[] .= "groups[{$group[uid]}] = " . json_encode($group['markers']) . ';';
+            $res[] .= "groups[{$group['uid']}] = " . json_encode($group['markers']) . ';';
         }
 
         $res[] = '';

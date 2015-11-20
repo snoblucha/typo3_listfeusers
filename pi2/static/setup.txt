@@ -13,6 +13,7 @@ plugin.tx_listfeusers_pi2{
             30 = TEXT
             30.field = name
             wrap = <h1 class="name fn">|</h1>
+            30.htmlSpecialChars = 1
         }
 
 
@@ -40,29 +41,34 @@ plugin.tx_listfeusers_pi2{
             stdWrap.wrap = <table class="contact">|</table>
             stdWrap.required = 1
 
-            10 = TEXT
-            10.field = firma
-            10.wrap = <tr><td>Firma</td><td class="value">|</td></div>
+            8 = TEXT
+            8.field = firma
+            8.wrap = <tr><td>Firma</td><td class="value">|</td></div>
+            8.htmlSpecialChars = 1
 
             9 = TEXT
             9.field = date_of_birth
             9.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:birthday}</td><td class="value">|</td></div>
             9.if.isTrue.field = date_of_birth
+            9.htmlSpecialChars = 1
 
             10 = TEXT
             10.field = telephone
             10.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:telephone}</td><td class="value">|</td></div>
+            10.htmlSpecialChars = 1
             #10.if.isTrue.field = telephone
 
             20 = TEXT
             20.field = email
             20.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:email}</td><td class="value">|</td></tr>
+            20.htmlSpecialChars = 1
             #20.if.isTrue.field = email
 
             30 = TEXT
             30.field = fax
             30.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:fax}:</td><td class="value">|</td></tr>
             30.if.isTrue.field = fax
+            30.htmlSpecialChars = 1
 
             40 = TEXT
             40.field = www
@@ -70,6 +76,7 @@ plugin.tx_listfeusers_pi2{
             40.if.isTrue.field = www
             40.typolink.parameter.field = www
             40.typolink.extTarget = _blank
+            40.htmlSpecialChars = 1
         }
 
         #address
@@ -81,17 +88,20 @@ plugin.tx_listfeusers_pi2{
 
             10 = TEXT
             10.field = address
-            10.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:address}</td><td class="value">|<//tr>
+            10.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:address}</td><td class="value">|</tr>
+            10.htmlSpecialChars = 1
 
 
             19  = TEXT
             19.field = zip
             19.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:zip}</td><td class="value">|</tr>
             #19.if.isTrue.field = zip
+            19.htmlSpecialChars = 1
 
             20 = TEXT
             20.field = city
             20.dataWrap = <tr><td>{LLL:EXT:listfeusers/pi2/locallang.xml:city}</td><td class="value">|</tr>
+            20.htmlSpecialChars = 1
             #20.if.isTrue.field = city
 
 

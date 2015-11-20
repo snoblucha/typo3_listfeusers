@@ -14,12 +14,14 @@ plugin.tx_listfeusers_pi1{
             30 = TEXT
             30.field = name
             wrap = <h1 class="name fn">|</h1>
+            30.htmlSpecialChars = 1
         }
 
         11 = TEXT
         11 {
             data = page : title
             wrap = <div class="role">|</div>
+            htmlSpecialChars = 1
         }
 
         15 = COA
@@ -45,20 +47,25 @@ plugin.tx_listfeusers_pi1{
             stdWrap.wrap = <div class="contact">|</div>
             stdWrap.required = 1
 
+
             10 = TEXT
             10.field = telephone
+            10.htmlSpecialChars = 1
             10.dataWrap = <div class="tel">{LLL:EXT:listfeusers/pi1/locallang.xml:tel}: |</div>
             10.if.isTrue.field = telephone
+
 
             20 = TEXT
             20.field = email
             20.wrap = <div class="email">|</div>
             20.if.isTrue.field = email
+            20.htmlSpecialChars = 1
 
             30 = TEXT
             30.field = fax
             30.dataWrap = <div class="fax">{LLL:EXT:listfeusers/pi1/locallang.xml:fax}: |</div>
             30.if.isTrue.field = fax
+            30.htmlSpecialChars = 1
 
             40 = TEXT
             40.field = www
@@ -66,6 +73,7 @@ plugin.tx_listfeusers_pi1{
             40.if.isTrue.field = www
             40.typolink.parameter.field = www
             40.typolink.extTarget = _blank
+            40.htmlSpecialChars = 1
         }
 
         #address
@@ -76,16 +84,19 @@ plugin.tx_listfeusers_pi1{
             10.field = address
             10.wrap = <div class="street-address">|</div>
             10.if.isTrue.field = address
+            10.htmlSpecialChars = 1
 
 			19  = TEXT
             19.field = zip
             19.wrap = <span class="postal-code">| &nbsp; </span>
             19.if.isTrue.field = zip
+            19.htmlSpecialChars = 1
 
             20 = TEXT
             20.field = city
             20.wrap = <span class="locality">|</span>
             20.if.isTrue.field = city
+            20.htmlSpecialChars = 1
 
 
 
@@ -99,6 +110,7 @@ plugin.tx_listfeusers_pi1{
             10 = TEXT
             10 {
                 field = comments
+                htmlSpecialChars = 1
             }
         }
 
